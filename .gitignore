@@ -1,0 +1,11 @@
+
+e-codices/fulldump/ecodices_complete_set.json
+*.zip
+e-codices/fulldump/ecodices_complete_set.xlsx
+*.xml
+e-rara/fulldump/erara_complete_set.json
+e-rara/fulldump/erara_complete_set.xlsx
+*.json
+*.pyc
+e-codices/.ipynb_checkpoints/zhb_dlza_ecodices_info-checkpoint.ipynb
+e-rara/.ipynb_checkpoints/zhb_dlza_erara_info-checkpoint.ipynb
