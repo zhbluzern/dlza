@@ -1,11 +1,11 @@
 #metadata
 address = 'mailto:kathrin.heim@zhbluzern.ch'
-collection = 'ZHB E-Codices'
-collection_id = 'zhb_ecodices'
+collection = 'ZHB E-Manuscripta'
+collection_id = 'zhb_emanuscripta'
 ingest_workflow = 'W01'
-keywords = ['E-Codices', 'ZHB', 'Sondersammlung']
+keywords = ['E-Manuscripta', 'ZHB', 'Sondersammlung']
 last_changed = '2023-07-27'
 organisation = 'Zentral- und Hochschulbibliothek Luzern'
 organisation_id = 'zhb'
-sets = ['ecodices', 'zhb', 'sosa']
+sets = ['emanuscripta', 'zhb', 'sosa', 'lara']
 signature = 'zhb_'

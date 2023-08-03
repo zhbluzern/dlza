@@ -9,3 +9,5 @@ e-rara/fulldump/erara_complete_set.xlsx
 *.pyc
 e-codices/.ipynb_checkpoints/zhb_dlza_ecodices_info-checkpoint.ipynb
 e-rara/.ipynb_checkpoints/zhb_dlza_erara_info-checkpoint.ipynb
+e-manuscripta/.ipynb_checkpoints/zhb_dlza_emanuscripta_info-checkpoint.ipynb
+e-manuscripta/fulldump/emanuscripta_complete_set.xlsx
