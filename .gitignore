@@ -14,3 +14,11 @@ e-manuscripta/fulldump/emanuscripta_complete_set.xlsx
 e-codices/fulldump/signatures.txt
 e-manuscripta/fulldump/signatures.txt
 e-rara/fulldump/signatures.txt
+.ipynb_checkpoints/zhb_gocfl_create-checkpoint.ipynb
+config/gocfl.toml
+e-rara/files/erara_complete_set.xlsx
+e-rara/files/signatures.txt
+gocfl_create/gocfl_create_zhb_10_3931_e-rara-86409.txt
+gocfl_create/gocfl_create_zhb_10_3931_e-rara-87374.txt
+gocfl_errors/file_not_found_zhb_10_3931_e-rara-86372.txt
+gocfl_errors/file_not_found_zhb_10_3931_e-rara-88566.txt
