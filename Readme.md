@@ -19,18 +19,17 @@ Vereinfacht gesagt, muss eine info.json folgendermassen aussehen:
         'collection': config.collection,
         'collection_id': config.collection_id,
         'created': 'yyyy-mm-dd'
-        'description': '',
         'identifiers': [],
         'ingest_workflow': config.ingest_workflow, 
         'keywords': config.keywords, 
-        'last_changed': config.last_changed,
+        'last_changed': [today]
         'organisation' : config.organisation,
         'organisation_id' : config.organisation_id, 
         'references' : [],
         'sets' : config.sets,
         'signature': '', 
         'title' : '', 
-        'user' : ''       
+        'user' : config.user       
     }
 
 Pflichtfelder sind: "signature", "organisation_id", "organisation", "title", "user", "address", "created", "last_changed".
@@ -42,8 +41,10 @@ Im Config-File wird die Abteilung (bspw. zhb_...) hinzugefügt, das Script ergä
 
 ### Config.py
 
-Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Set konfiguriert werden (z.B. author, institution, etc.). Sie muss in folgender Struktur vorliegen (Beispieldaten für ZHB E-Rara)
+Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Set konfiguriert werden (z.B. author, institution, etc.). Sie muss in folgender Struktur vorliegen (Beispieldaten für ZHB E-Rara).
+Die Sets bilden sowohl Mandant, Datenproduzent und Collection ab. Via keywords können beispielsweise die Datenquellen angegeben werden (bspw. Zentralgut, E-Rara, Lara). Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem, wenn sich diese signifikant von der Signature unterscheiden. 
 
+    additional = 'G:/ZHB-Sosa_Digital'
     address = 'mailto:someone@internet.com'
     collection = 'ZHB E-Rara'
     collection_id = 'zhb_erara'
@@ -54,6 +55,7 @@ Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadat
     organisation_id = 'zhb'
     sets = '[erara, zhb, sosa, lara]'
     signature = 'zhb_'
+    user = 'Name der Archivar:in'
     
 ### OAI configuration 
 
@@ -68,13 +70,17 @@ Wichtige Basisdaten fürs Harvesting, die in jedem Script angepasst werden müss
 
 Für jeden einzelnen record wird eine info.json-Datei erstellt im Format signature.json. Diese Dateien werden im directory 'info' abgelegt. 
 Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert.
+Zusätzlich wird eine Textdatei mit allen erstellten Signatures abgelegt.
 
-### Marcxml aus Alma (SRU)
+### Metadaten (Alma, weitere Systeme)
 
 Mit der alma_id werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter signature.xml im directory 'metadata'.
 SRU Doku: 
 https://developers.exlibrisgroup.com/alma/integrations/sru/ 
 https://slsp.atlassian.net/wiki/spaces/PSI/pages/77530997/SRU+Z39.50
+
+Weitere Metadaten (z.B. METS/MODS-Daten) können aus andern Systemen hinzugefügt werden. 
+Wichtig: die Metadaten müssen pro Objekt in einem eigenen directory zusammegefasst werden. 
 
 
 ### Datenobjekte abholen
