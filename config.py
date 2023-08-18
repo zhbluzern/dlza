@@ -12,7 +12,7 @@ infopath = 'info'
 #archive structure
 collection = 'sosa_e-rara'
 archive = 'zhb_dlza'
-root = 'P:/temp'
+root = '.'
 
 #gocfl info
 configfile = 'config/gocfl.toml'
