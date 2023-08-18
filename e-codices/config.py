@@ -5,7 +5,6 @@ collection = 'ZHB E-Codices'
 collection_id = 'zhb_sosa_e-codices'
 ingest_workflow = 'zhb_ecodices'
 keywords = ['E-Codices', 'ZHB', 'Sondersammlung']
-last_changed = '2023-07-27'
 organisation = 'Zentral- und Hochschulbibliothek Luzern'
 organisation_id = 'zhb'
 sets = ['ecodices', 'zhb', 'sosa']
