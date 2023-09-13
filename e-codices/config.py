@@ -11,3 +11,5 @@ sets = ['ecodices', 'zhb', 'sosa']
 signature = 'zhb_'
 urldoi = 'https://doi.org/'
 urlalma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/lim8q1/alma'
+urlsru = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
+urliiif = 'https://www.e-codices.ch/metadata/iiif/'
