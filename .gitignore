@@ -28,3 +28,10 @@ e-codices/files/signatures.txt
 e-manuscripta/files/emanuscripta_complete_set.xlsx
 *.jpg
 e-codices/objects/10_5076_e-codices-zhl-N0175/ecod_S.23.fol_Korp_JPG/Thumbs.db
+e-rara/config.py
+lory/lory_identifiers_06-2023.xlsx
+lory/lory_identifiers_sample.xlsx
+lory/config.py
+e-rara/config.py
+lory/files/lory_complete_set.xlsx
+*.pdf
