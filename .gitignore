@@ -35,3 +35,20 @@ lory/config.py
 e-rara/config.py
 lory/files/lory_complete_set.xlsx
 *.pdf
+.ipynb_checkpoints/1_config ausfüllen-checkpoint.ipynb
+.ipynb_checkpoints/5 gocfl_create-checkpoint.ipynb
+.ipynb_checkpoints/1_Vorbereitungen-checkpoint.ipynb
+.ipynb_checkpoints/2 Info.json erstellen-checkpoint.ipynb
+.ipynb_checkpoints/3 metadaten abholen-checkpoint.ipynb
+.ipynb_checkpoints/4 Objects anlegen-checkpoint.ipynb
+archived_scripts/.ipynb_checkpoints/zhb_dlza_emanuscripta_info-checkpoint.ipynb
+archived_scripts/zhb_dlza_ecodices.ipynb
+archived_scripts/zhb_dlza_emanuscripta_old.ipynb
+archived_scripts/zhb_dlza_erara_old.ipynb
+config.py
+*.db
+*.xlsx
+*.tif
+*.md5
+zhb_lory/.ipynb_checkpoints/zhb_dlza_lory_info-checkpoint.ipynb
+e-codices/config.py
