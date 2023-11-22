@@ -36,8 +36,9 @@ organisation_id = 'zhb'
 
 # DLZA Workbench information
 
-dlza_root = 'd:/Ingest'
-gocfl_conf = 'd:/Ingest/config/zhb-config.toml'
+dlza_root = 'D:/Ingest'
+gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
+gocfl = 'gocfl-20231019.exe'
 
 
 # general configuration

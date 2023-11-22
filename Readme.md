@@ -2,7 +2,7 @@
 
 Diese Jupyter Notebooks dienen zur Aufbereitung der Datenobjekte und Metadaten aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA) der ZHB Luzern, basierend auf der GOCFL implementierung von Jürgen Enge, https://github.com/je4/gocfl .
 
-Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (Lory, Lara) sowie weiteren Sammlungen aufbereitet. Für jede Sammlung (= collection) gibt es ein eigenes Jupyter Notebook, aber folgende Grundlagen gelten für alle:
+Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (Lory, Lara) sowie weiteren Sammlungen aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow, aber folgender Basis-Workflow gilt für alle:
 
 
 
@@ -36,13 +36,13 @@ Pflichtfelder sind: "signature", "organisation_id", "organisation", "title", "us
 
 Die Signature ist die zentrale ID für die Erstellung der Archivkapseln und besteht daher aus einem dauerhaften Identifier (bspw. DOI). 
 
-Im Config-File wird die Abteilung (bspw. zhb_...) hinzugefügt, das Script ergänzt den Identifier. 
+Im Config-File wird die Abteilung (bspw. zhb:...) hinzugefügt, das Script ergänzt den Identifier. 
 
 
 ### Config.py
 
 Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Set konfiguriert werden (z.B. author, institution, etc.). Sie muss in folgender Struktur vorliegen (Beispieldaten für ZHB E-Rara).
-Die Sets bilden sowohl Mandant, Datenproduzent und Collection ab. Via keywords können beispielsweise die Datenquellen angegeben werden (bspw. Zentralgut, E-Rara, Lara). Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem, wenn sich diese signifikant von der Signature unterscheiden. 
+Die Sets bilden sowohl Mandant, Datenproduzent und Collection ab. Via keywords können beispielsweise die Datenquellen angegeben werden (bspw. Zentralgut, E-Rara, Lara). Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem. 
 
     additional = 'G:/ZHB-Sosa_Digital'
     address = 'mailto:someone@internet.com'
