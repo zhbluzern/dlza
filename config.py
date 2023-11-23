@@ -1,10 +1,10 @@
-# collection
+# collection: not allowed: characters ~ “ # % & * : < > ? / \ { | }
 
-collection_id = 'zhb_e-manuscripta'
-collection = 'ZHB E-Manuscripta'
-ingest_workflow = 'e-manuscripta'
-keywords = ['E-Manuscripta, ZHB, Sondersammlung']
-sets = ['e-manuscripta', 'zhb', 'sosa', 'lara']
+collection_id = 'sosa_emanus'
+collection = 'ZHB Sosa E-Manuscripta'
+ingest_workflow = 'e-manuscripta' 
+keywords = ['E-Manuscripta', 'ZHB', 'Sondersammlung']  # array
+sets = ['e-manuscripta', 'zhb', 'sosa', 'lara'] # array
 input_file = 'e-manuscripta.xlsx'
 
 
@@ -24,7 +24,7 @@ datacite_baseurl = 'https://zenodo.org/oai2d'
 # user information 
 
 user_name = 'Kathrin Heim'
-user_address = 'mailto:kathrin.heim@zhbluzern.ch'
+user_address = 'mailto:lit@zhbluzern.ch'
 user_root = "C:/Users/HeimK/switchdrive/dlza/dlza"
 
 
