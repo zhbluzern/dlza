@@ -13,7 +13,7 @@ input_file = 'e-manuscripta.xlsx'
 marcxml = 'true'
 marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
 
-iiif = 'true'
+iiif = 'false'
 iiif_baseurl = 'https://www.e-manuscripta.ch/i3f/v20/'
 
 datacite = 'false'
@@ -47,7 +47,7 @@ baseurl_doi = 'https://doi.org/'
 baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma'
 
 
-# subdirectories and file formats
+# subdirectories 
 
 files_path = 'files'
 metadata_path = 'metadata'
