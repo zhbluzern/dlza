@@ -13,9 +13,6 @@ input_file = 'e-manuscripta.xlsx'
 marcxml = 'true'
 marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
 
-iiif = 'false'
-iiif_baseurl = 'https://www.e-manuscripta.ch/i3f/v20/'
-
 datacite = 'false'
 datacite_set = 'user-lara' # OAI set name, eg. user-lory, user-lara...
 datacite_baseurl = 'https://zenodo.org/oai2d'
@@ -25,20 +22,21 @@ datacite_baseurl = 'https://zenodo.org/oai2d'
 
 user_name = 'Kathrin Heim'
 user_address = 'mailto:lit@zhbluzern.ch'
-user_root = "C:/Users/HeimK/switchdrive/dlza/dlza"
+user_root = "C:/Users/HeimK/switchdrive/jupyter/dlza"
 
 
 # organisation information
 
 organisation = 'Zentral- und Hochschulbibliothek Luzern'
 organisation_id = 'zhb'
+organisation_address = 'mailto:lit@zhbluzern.ch'
 
 
 # DLZA Workbench information
 
 dlza_root = 'D:/Ingest'
 gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
-gocfl = 'gocfl-20231019.exe'
+gocfl = 'gocfl.exe'
 
 
 # general configuration
