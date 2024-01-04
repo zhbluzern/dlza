@@ -7,6 +7,8 @@ ingest_workflow = 'e-manuscripta'
 keywords = []  # array
 sets = ['e-manuscripta', 'zhb', 'sosa', 'lara'] # array
 input_file = 'e-manuscripta.xlsx'
+inventory_file = 'e-manuscripta_inventory.json'
+inventory_xlsx = 'e-manuscripta_inventory.xlsx'
 
 
 # metadata formats
@@ -37,7 +39,8 @@ organisation_address = 'mailto:lit@zhbluzern.ch'
 
 dlza_root = 'D:/Ingest'
 gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
-gocfl = 'gocfl.exe'
+#gocfl = 'gocfl.exe'
+gocfl = 'gocfl'
 
 
 # general configuration
