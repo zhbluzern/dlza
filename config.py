@@ -3,7 +3,7 @@
 collection_id = 'sosa_emanus'
 collection = 'ZHB Sosa E-Manuscripta'
 ingest_workflow = 'e-manuscripta' 
-keywords = ['E-Manuscripta', 'ZHB', 'Sondersammlung']  # array
+keywords = []  # array
 sets = ['e-manuscripta', 'zhb', 'sosa', 'lara'] # array
 input_file = 'e-manuscripta.xlsx'
 
