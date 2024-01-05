@@ -51,8 +51,8 @@ baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma
 
 # subdirectories 
 
-files_path = 'files'
+info_path = 'info'
 metadata_path = 'metadata'
 object_path = 'objects'
-info_path = 'info'
+gocfl_path = 'gocfl'
 
