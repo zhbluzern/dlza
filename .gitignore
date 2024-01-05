@@ -52,3 +52,4 @@ config.py
 *.md5
 zhb_lory/.ipynb_checkpoints/zhb_dlza_lory_info-checkpoint.ipynb
 e-codices/config.py
+*.sha512
