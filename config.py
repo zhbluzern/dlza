@@ -1,23 +1,23 @@
 # collection: 
 # not allowed: characters ~ “ # % & * : < > ? / \ { | }
 
-collection_id = 'sosa_emanus'
-collection = 'ZHB Sosa E-Manuscripta'
-ingest_workflow = 'e-manuscripta' 
+collection_id = 'lory_unilu'
+collection = 'LORY Universität Luzern'
+ingest_workflow = 'zenodo' 
 keywords = []  # array
-sets = ['e-manuscripta', 'zhb', 'sosa', 'lara'] # array
-input_file = 'e-manuscripta.xlsx'
-inventory_file = 'e-manuscripta_inventory.json'
-inventory_xlsx = 'e-manuscripta_inventory.xlsx'
+sets = ['unilu', 'zhb', 'lory'] # array
+input_file = 'lory_unilu.xlsx'
+inventory_file = 'lory_unilu_inventory.json'
+inventory_xlsx = 'lory_unilu_inventory.xlsx'
 
 
 # metadata formats
 
-marcxml = 'true'
+marcxml = 'false'
 marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
 
-datacite = 'false'
-datacite_set = 'user-lara' # OAI set name, eg. user-lory, user-lara...
+datacite = 'true'
+datacite_set = 'user-lory_unilu' # OAI set name, eg. user-lory, user-lara...
 datacite_baseurl = 'https://zenodo.org/oai2d'
 
 

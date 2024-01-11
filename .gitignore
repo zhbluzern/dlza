@@ -53,3 +53,6 @@ config.py
 zhb_lory/.ipynb_checkpoints/zhb_dlza_lory_info-checkpoint.ipynb
 e-codices/config.py
 *.sha512
+config-lory.py
+config-sosa-ecod.py
+config-sosa-emanus.py
