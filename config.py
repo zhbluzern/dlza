@@ -5,7 +5,7 @@ collection_id = 'lory_unilu'
 collection = 'LORY Universität Luzern'
 ingest_workflow = 'zenodo' 
 keywords = []  # array
-sets = ['unilu', 'zhb', 'lory'] # array
+sets = ['unilu', 'zhb', 'lory', 'lory_unilu'] # array
 input_file = 'lory_unilu.xlsx'
 inventory_file = 'lory_unilu_inventory.json'
 inventory_xlsx = 'lory_unilu_inventory.xlsx'
@@ -13,12 +13,13 @@ inventory_xlsx = 'lory_unilu_inventory.xlsx'
 
 # metadata formats
 
-marcxml = 'false'
+marcxml = 'False'
 marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
 
-datacite = 'true'
-datacite_set = 'user-lory_unilu' # OAI set name, eg. user-lory, user-lara...
-datacite_baseurl = 'https://zenodo.org/oai2d'
+datacite = 'True'
+dc = 'True'
+zenodo_set = 'user-lory_unilu' # OAI set name, eg. user-lory
+zenodo_baseurl = 'https://zenodo.org/oai2d'
 
 
 # user information 
