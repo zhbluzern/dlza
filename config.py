@@ -20,6 +20,7 @@ datacite = 'True'
 dc = 'True'
 zenodo_set = 'user-lory_unilu' # OAI set name, eg. user-lory
 zenodo_baseurl = 'https://zenodo.org/oai2d'
+access_token = 'xdj4l8L5VA3kpOTWwKPyQx7EIQocRrWTGduDA44ADbqMQuuaiMme1sseHWWF'
 
 
 # user information 
