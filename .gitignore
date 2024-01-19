@@ -56,3 +56,4 @@ e-codices/config.py
 config-lory.py
 config-sosa-ecod.py
 config-sosa-emanus.py
+.env
