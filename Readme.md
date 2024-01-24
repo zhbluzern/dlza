@@ -5,7 +5,6 @@ Diese Jupyter Notebooks dienen zur Aufbereitung der Datenobjekte und Metadaten a
 Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (Lory, Lara) sowie weiteren Sammlungen aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow, aber folgender Basis-Workflow gilt für alle:
 
 
-
 ## Basiskonfiguration
 
 Es wird eine info.json Datei nach folgendem Schema erstellt:
@@ -18,11 +17,10 @@ Vereinfacht gesagt, muss eine info.json folgendermassen aussehen:
         'address': config.address, 
         'collection': config.collection,
         'collection_id': config.collection_id,
-        'created': 'yyyy-mm-dd'
+        'created': now
         'identifiers': [],
         'ingest_workflow': config.ingest_workflow, 
-        'keywords': config.keywords, 
-        'last_changed': [today]
+        'last_changed': now
         'organisation' : config.organisation,
         'organisation_id' : config.organisation_id, 
         'references' : [],
@@ -41,44 +39,20 @@ Im Config-File wird die Abteilung (bspw. zhb:...) hinzugefügt, das Script ergä
 
 ### Config.py
 
-Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Set konfiguriert werden (z.B. author, institution, etc.). Sie muss in folgender Struktur vorliegen (Beispieldaten für ZHB E-Rara).
-Die Sets bilden sowohl Mandant, Datenproduzent und Collection ab. Via keywords können beispielsweise die Datenquellen angegeben werden (bspw. Zentralgut, E-Rara, Lara). Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem. 
-
-    additional = 'G:/ZHB-Sosa_Digital'
-    address = 'mailto:someone@internet.com'
-    collection = 'ZHB E-Rara'
-    collection_id = 'zhb_erara'
-    ingest_workflow = 'W01'
-    keywords = '[E-Rara, ZHB, Sondersammlung]'
-    last_changed = '2023-07-27'
-    organisation = 'Zentral- und Hochschulbibliothek Luzern'
-    organisation_id = 'zhb'
-    sets = '[erara, zhb, sosa, lara]'
-    signature = 'zhb_'
-    user = 'Name der Archivar:in'
-    
-### OAI configuration 
-
-Wichtige Basisdaten fürs Harvesting, die in jedem Script angepasst werden müssen. Beispiel für e-rara:
-
-    base_url = 'https://zenodo.org/oai2d'
-    prefix = 'oai_dc'
-    set_name = 'user-lara_e-rara'
+Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Set konfiguriert werden (z.B. author, institution, etc.). Sie muss in einer bestimmten Struktur vorliegen (Details, siehe Notebook "Vorbereitung").
+Die Config bilden sowohl Mandant, Datenproduzent und Collection ab. Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem. 
+Die config.py beinhält auch die Schnittstellen-Konfigurationen (z.B. Metadatenformate, Basis-URL für OAI-PMH, etc.)
 
 
 ### Export
 
 Für jeden einzelnen record wird eine info.json-Datei erstellt im Format signature.json. Diese Dateien werden im directory 'info' abgelegt. 
 Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert.
-Zusätzlich wird eine Textdatei mit allen erstellten Signatures abgelegt.
+
 
 ### Metadaten (Alma, weitere Systeme)
 
 Mit der alma_id werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter signature.xml im directory 'metadata'.
-SRU Doku: 
-https://developers.exlibrisgroup.com/alma/integrations/sru/ 
-https://slsp.atlassian.net/wiki/spaces/PSI/pages/77530997/SRU+Z39.50
-
 Weitere Metadaten (z.B. METS/MODS-Daten) können aus andern Systemen hinzugefügt werden. 
 Wichtig: die Metadaten müssen pro Objekt in einem eigenen directory zusammegefasst werden. 
 

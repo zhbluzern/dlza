@@ -57,3 +57,6 @@ config-lory.py
 config-sosa-ecod.py
 config-sosa-emanus.py
 .env
+*.icc
+archived_scripts/.ipynb_checkpoints/zhb_dlza_erara_old-checkpoint.ipynb
+lory/zhb_dlza_lory_info.ipynb
