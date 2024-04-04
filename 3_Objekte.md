@@ -43,7 +43,7 @@ OAI-PMH API harvesting: 120 requests per minute
 
 ## Nächstes Kapitel 
 
-[4 - GOCFL](4_gocfl.md)
+[4 - GOCFL](4_GOCFL.md)
 
 ## Vorheriges Kapitel
 

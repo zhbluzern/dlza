@@ -70,4 +70,4 @@ python create_inventory_from_xlsx-zenodo.py
 ## Vorheriges Kapitel
 
 
-[Readme](Readme.mdmd)
+[Readme](Readme.md)
