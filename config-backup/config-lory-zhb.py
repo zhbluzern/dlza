@@ -14,20 +14,14 @@ inventory_xlsx = 'lory_zhb_inventory.xlsx'
 # metadata formats
 
 marcxml = 'False'
+marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
+
 datacite = 'True'
 dc = 'True'
 apidata = 'True'
-tei = 'False'
-
-# metadata base urls
-
-marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
-
-zenodo_baseurl = 'https://zenodo.org/oai2d'
 zenodo_set = 'user-lory_zhb' # OAI set name, eg. user-lory
+zenodo_baseurl = 'https://zenodo.org/oai2d'
 zenodo_api = 'https://zenodo.org/api/records'
-
-ecodices_url = 'https://www.e-codices.unifr.ch/xml/tei_published' # for tei format
 
 
 # user information 
@@ -50,6 +44,7 @@ dlza_root = 'D:/Ingest'
 gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
 #gocfl = 'gocfl.exe'
 gocfl = 'gocfl'
+
 
 # general configuration
 
