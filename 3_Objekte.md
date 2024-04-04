@@ -18,7 +18,7 @@ Die Zipkapseln sind alle nach folgender Struktur oder ähnlich benannt:
     10_7891_e-manuscripta-108732.zip
 
 Die Objekte liegen auf G:\ZHB-Sosa_Digital\digital. Die vollständigen Pfade auf G sind in der Eingabedatei ergänzt und ist in die Infojson unter 'additional' abgelegt. 
-Der Dateipfad auf der Workbench wird nach dem DOI benannt. 
+Der Dateipfad auf der Workbench wird nach dem DOI benannt. Script: [copy_zip_from_directory.py](copy_zip_from_directory.py)
 
 Aufruf via Konsole:
 ```
@@ -27,7 +27,7 @@ python copy_zip_from_directory.py
 
 ## Variante B: Download aus Zenodo
 
-Die Datenabholung für Zenodo-Repositories funktioniert etwas anders: mittels HTTP download direkt von zenodo. Script: [copy_zip_from_directory.py](copy_zip_from_directory.py)
+Die Datenabholung für Zenodo-Repositories funktioniert etwas anders: mittels HTTP download direkt von zenodo. Script: [copy_zip_from_zenodo.py](copy_zip_from_zenodo.py)
 
 
 Aufruf via Konsole:
