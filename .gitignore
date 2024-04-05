@@ -1,62 +1,14 @@
-
-e-codices/fulldump/ecodices_complete_set.json
 *.zip
-e-codices/fulldump/ecodices_complete_set.xlsx
+*.xlsx
 *.xml
-e-rara/fulldump/erara_complete_set.json
-e-rara/fulldump/erara_complete_set.xlsx
 *.json
 *.pyc
-e-codices/.ipynb_checkpoints/zhb_dlza_ecodices_info-checkpoint.ipynb
-e-rara/.ipynb_checkpoints/zhb_dlza_erara_info-checkpoint.ipynb
-e-manuscripta/.ipynb_checkpoints/zhb_dlza_emanuscripta_info-checkpoint.ipynb
-e-manuscripta/fulldump/emanuscripta_complete_set.xlsx
-e-codices/fulldump/signatures.txt
-e-manuscripta/fulldump/signatures.txt
-e-rara/fulldump/signatures.txt
-.ipynb_checkpoints/zhb_gocfl_create-checkpoint.ipynb
-config/gocfl.toml
-e-rara/files/erara_complete_set.xlsx
-e-rara/files/signatures.txt
-gocfl_create/gocfl_create_zhb_10_3931_e-rara-86409.txt
-gocfl_create/gocfl_create_zhb_10_3931_e-rara-87374.txt
-gocfl_errors/file_not_found_zhb_10_3931_e-rara-86372.txt
-gocfl_errors/file_not_found_zhb_10_3931_e-rara-88566.txt
-e-codices/files/ecodices_complete_set.xlsx
-e-codices/files/signatures.txt
 *.txt
-e-manuscripta/files/emanuscripta_complete_set.xlsx
 *.jpg
-e-codices/objects/10_5076_e-codices-zhl-N0175/ecod_S.23.fol_Korp_JPG/Thumbs.db
-e-rara/config.py
-lory/lory_identifiers_06-2023.xlsx
-lory/lory_identifiers_sample.xlsx
-lory/config.py
-e-rara/config.py
-lory/files/lory_complete_set.xlsx
 *.pdf
-.ipynb_checkpoints/1_config ausfüllen-checkpoint.ipynb
-.ipynb_checkpoints/5 gocfl_create-checkpoint.ipynb
-.ipynb_checkpoints/1_Vorbereitungen-checkpoint.ipynb
-.ipynb_checkpoints/2 Info.json erstellen-checkpoint.ipynb
-.ipynb_checkpoints/3 metadaten abholen-checkpoint.ipynb
-.ipynb_checkpoints/4 Objects anlegen-checkpoint.ipynb
-archived_scripts/.ipynb_checkpoints/zhb_dlza_emanuscripta_info-checkpoint.ipynb
-archived_scripts/zhb_dlza_ecodices.ipynb
-archived_scripts/zhb_dlza_emanuscripta_old.ipynb
-archived_scripts/zhb_dlza_erara_old.ipynb
-config.py
 *.db
-*.xlsx
 *.tif
 *.md5
-zhb_lory/.ipynb_checkpoints/zhb_dlza_lory_info-checkpoint.ipynb
-e-codices/config.py
 *.sha512
-config-lory.py
-config-sosa-ecod.py
-config-sosa-emanus.py
 .env
 *.icc
-archived_scripts/.ipynb_checkpoints/zhb_dlza_erara_old-checkpoint.ipynb
-lory/zhb_dlza_lory_info.ipynb
