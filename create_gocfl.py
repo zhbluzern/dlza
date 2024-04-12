@@ -1,9 +1,5 @@
 import config
-import os
-from zipfile import ZipFile
-import shutil
 from datetime import datetime
-from pathlib import Path
 import json
 
 #prepare archive structure
@@ -17,9 +13,7 @@ objects = f'{coll}/{config.object_path}'
 gocfl_conf = config.gocfl_conf
 gocfl = config.gocfl
 
-# filenames
-f_create = f'{coll}/{files}/create_'
-f_display = f'{coll}/{files}/display_'
+# input file
 f_info = f'{config.inventory_file}'
 
 # read line from file
@@ -47,15 +41,14 @@ with open(f_info, encoding="utf-8", errors='replace') as data_file:
         
         # display string
         display_string = f'{gocfl} display {storage_root}'
-        #report_name = f'{org}_{coll}_{foldername}.pdf'
         
         # write strings to file
-        create_file = f'{f_create}_{foldername}.bat'
-        display_file = f'{f_display}_{foldername}.bat'
-        with open(create_file, 'w') as file:
+        create_file = f'{coll}/{files}/{foldername}_create.bat'
+        display_file = f'{coll}/{files}/{foldername}_display.bat'
+        with open(create_file, 'w', encoding="utf-8", errors='replace') as file:
             file.write(create_string)
 
-        with open(display_file, 'w') as file:
+        with open(display_file, 'w', encoding="utf-8", errors='replace') as file:
             file.write(display_string)
 
                

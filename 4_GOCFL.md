@@ -1,14 +1,9 @@
 # Erstellung der gocfl create Befehle
 
-Dieses Python script erstellt die gocfl create-Befehle für eine bestimmte Collection. 
-Die Doku für den Aufbau eines gocfl create Befehls befindet sich hier: https://github.com/je4/gocfl/blob/main/docs/create.md
-
-### Caveat: manuelles entzippen
-
-Die AIPs liegen nun als ZIP-File im Ordner 'objects', im Unterordner der jeweiligen Signatur. Es macht keinen Sinn, ZIP-Files in ein ZIP-Archiv zu ingesten. Daher müssen die ZIP-Files vor dem Ingest entzippt und die Ordner danach bereinigt werden (ZIP-Files löschen). Dies sind zum Zeitpunkt alles manuelle Prozesse. 
+Dieses Python script erstellt die gocfl create-Befehle für eine bestimmte Collection.
+Die Doku für den Aufbau eines gocfl create Befehls befindet sich hier: <https://github.com/je4/gocfl/blob/main/docs/create.md>
 
 Dieses Script geht davon aus, dass im Unterordner objects/{signature}/ ein weiterer Unterordner liegt, dessen Content ins Archiv gelagert wird.
-
 
 ## config.py
 
@@ -24,34 +19,43 @@ Die Signature ist zentral für die Erstellung des storage roots, sowie das Auffi
 
 ### objects
 
-Das script prüft nicht, ob die SIP-Objekte tatsächlich vorhanden bzw. entzippt sind, dies muss vorher (manuell) überprüft werden. 
-
+Das script prüft nicht, ob die SIP-Objekte tatsächlich vorhanden bzw. entzippt sind, dies muss vorher (manuell) überprüft werden.
 
 ### storage root
 
-Hier wird davon ausgegangen, dass der storage root ein ZIP file sein soll. Für jede signature wird ein storage_root angelegt. 
+Hier wird davon ausgegangen, dass der storage root ein ZIP file sein soll. Für jede signature wird ein storage_root angelegt.
 
+## Create Befehl für gocfl generieren
 
-##  Create Befehl für gocfl generieren
-
-Die gocfl create Befehle für alle Signaturen werden gemäss https://github.com/je4/gocfl/blob/main/docs/create.md erstellt. Der Pfad für die Config.toml kann konfiguriert werden.  
+Die gocfl create Befehle für alle Signaturen werden gemäss <https://github.com/je4/gocfl/blob/main/docs/create.md> erstellt. Der Pfad für die Config.toml kann konfiguriert werden.  
 
 Muster:
 
     gocfl create ./archiv.zip ./object-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./info.json
-    
-Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.dat) mit dem jeweiligen Create-Befehl. 
 
+Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.dat) mit dem jeweiligen Create-Befehl. Aufruf:
+
+    python create_gocfl.py
 
 ## Display Befehl für gocfl generieren
 
-Das Script erstellt zusätzlich den Display-Befehl gemäss https://github.com/je4/gocfl/blob/main/docs/display.md .
-Der Display-Befehl wird in eine neue, ausführbare Datei (.dat) in das dazugehörige Display-File geschrieben. 
-
+Das Script erstellt zusätzlich den Display-Befehl gemäss <https://github.com/je4/gocfl/blob/main/docs/display.md> .
+Der Display-Befehl wird in eine neue, ausführbare Datei (.dat) in das dazugehörige Display-File geschrieben.
 
 ## Weitere Schritte
 
-Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Vorerst müssen die Daten dorthin manuell verschoben werden. 
+Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Die genaue Doku dazu ist auf Stackfield (ZHB-Intern). Kurzfassung:
+
+1. Gesamter collection-ordner auf Viren überprüfen
+2. Je nach Objects: Dateien umwandeln in andere Formate (z.B. PDF/A)
+3. Collection-Ordner auf Workbench verschieben (mittels Transfer-Laufwerk)
+4. Auf Workbench: Wenn notwendig, Zipkapseln entzippen
+5. Auf Workbench: Tika starten
+6. Auf Workbench: gocfl-create-Datei ausführen, Konsole auf Fehlermeldungen prüfen
+7. Auf Workbench: gocfl-display-Datei ausführen, Report erstellen
+8. gocfl-Archivkapseln mittels ONA nach Basel schicken (TODO)
+9. Reports und Inventory auf ZHB-DLZA ablegen. (TODO)
+10. Update in Originalsysteme ausführen (TODO)
 
 ## Zurück zur Übersicht
 

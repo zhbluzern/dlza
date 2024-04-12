@@ -12,3 +12,5 @@
 *.sha512
 .env
 *.icc
+*.bat
+/lory_zhb

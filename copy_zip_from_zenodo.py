@@ -21,7 +21,7 @@ zenodo_api = config.zenodo_api
 
 download_manually = f'{community}_download_manually.txt'
 counter = 0
-debug = 20 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
+debug = 999 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
 
 def calculate_md5(file_path):
     md5_hash = hashlib.md5()
@@ -38,13 +38,13 @@ with open(file_name, encoding="utf-8") as data_file:
         
         counter = counter+1
 
+        # prepare object folder: make a directory for each object (SIP)  
+        foldername = value["references"][1]
+        sip_path = f"{objects_path}/{foldername}"                  
+        Path(f'{sip_path}').mkdir(parents=True, exist_ok=True)
+
         # check if debug mode, only download test files        
         if counter <= debug: 
-
-            # prepare object folder: make a directory for each object (SIP)  
-            foldername = value["references"][1]
-            sip_path = f"{objects_path}/{foldername}"                  
-            Path(f'{sip_path}').mkdir(parents=True, exist_ok=True)
             
             # get the necessary identifier
             identifiers = {}
@@ -83,8 +83,8 @@ with open(file_name, encoding="utf-8") as data_file:
                     # checksum comparison from local_file to md5_checksum
                     try:
                         md5_checksum = calculate_md5(local_file)
-                        print("MD5 Checksum local_file:", md5_checksum)
-                        print("MD5 checksum Zenodo-File:", md5_checksum_zenodo)
+                        #print("MD5 Checksum local_file:", md5_checksum)
+                        #print("MD5 checksum Zenodo-File:", md5_checksum_zenodo)
                         if md5_checksum == md5_checksum_zenodo:
                             print("Checksums match")
                         else:
