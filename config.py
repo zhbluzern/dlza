@@ -1,23 +1,23 @@
 # collection: 
 # not allowed: characters ~ “ # % & * : < > ? / \ { | }
 
-collection_id = 'sosa_ecod'
-collection = 'ZHB Sosa E-Codices'
-ingest_workflow = 'e-codices' 
+collection_id = 'lory_zhb'
+collection = 'Lory ZHB-Community'
+ingest_workflow = 'zenodo' 
 keywords = []  # array
-sets = ['e-codices', 'zhb', 'sosa', 'lara'] # array
-input_file = 'e-codices.xlsx'
-inventory_file = 'e-codices_inventory.json'
-inventory_xlsx = 'e-codices_inventory.xlsx'
+sets = ['zhb', 'lory', 'lory_zhb'] # array
+input_file = 'lory_zhb.xlsx'
+inventory_file = 'lory_zhb_inventory.json'
+inventory_xlsx = 'lory_zhb_inventory.xlsx'
 
 
 # metadata formats
 
-marcxml = 'True'
-datacite = 'False'
-dc = 'False'
-apidata = 'False'
-tei = 'True'
+marcxml = 'False'
+datacite = 'True'
+dc = 'True'
+apidata = 'True'
+tei = 'False'
 
 # metadata base urls
 
@@ -34,7 +34,7 @@ ecodices_url = 'https://www.e-codices.unifr.ch/xml/tei_published' # for tei form
 
 user_name = 'Kathrin Heim'
 user_address = 'mailto:kathrin.heim@zhbluzern.ch'
-user_root = "G:/Research10/ZHB-DLZA/dlza-main"
+user_root = "G:/Research10/ZHB-DLZA/dlza"
 
 
 # organisation information

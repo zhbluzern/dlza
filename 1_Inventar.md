@@ -69,6 +69,8 @@ Standardverfahren für alle Zenodo-Repository-Daten (Lory, Lara):
 Diese collections der ZHB können ebenfalls mit einer Eingabedatei verarbeitet werden.  Sie kann mit dem folgenden Script aus Zenodo exportiert werden: [create_excel_from_zenodo.py](create_excel_from_zenodo.py). Danach liegt eine Excel-Datei im working directory.
 Der Name der Datei sowie die Zenodo-Community werden in der config.py angegeben.
 
+*Wichtig: community_id in config.py muss wie die Zenodo-ID lauten, damit das Skript funktioniert.*
+
 Aufruf:
 
 ```

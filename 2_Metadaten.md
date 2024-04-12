@@ -1,26 +1,25 @@
 # 2 - Metadaten abholen
 
-Für gocfl müssen die semantischen Metadaten pro Objekt in einem eigenen Ordner liegen. Dazu wird ein Unterordner 'signature' im Ordner 'metadata' erstellt. 
+Für gocfl müssen die semantischen Metadaten pro Objekt in einem eigenen Ordner liegen. Dazu wird ein Unterordner 'signature' im Ordner 'metadata' erstellt.
 
 ### Metadaten aus Alma (SRU, marcxml)
 
-Mit der MMS ID werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter metadata/{signature}/mmsid.xml. 
-
+Mit der MMS ID werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter metadata/{signature}/mmsid.xml.
 
 ### Datacite - Dublin Core (OAI, XML/json)
 
 Daten aus Zenodo-Repositories werden mit Datacite- und Dublin-Core Metadaten ins Archiv eingelagert.
 Dazu wird die Zenodo-ID und das OAI-Set benötigt.
 Für Zenodo-Daten soll immer auch die komplette API-Response mitgespeichert werden, da nur hier die access-rights und allfälligen Embargo-Daten hinterlegt sind.
-Rate Limiting Daten für Zenodo (OAI und API): https://about.zenodo.org/principles/ Punkt 11 
+Rate Limiting Daten für Zenodo (OAI und API): <https://about.zenodo.org/principles/> Punkt 11
 
 ### TEI
+
 E-codices Beschreibungen im TEI Format (XML). Http-request auf e-codices-Webseite.
 
 ### Weitere Metadaten
 
 z.B. OCR/Aalto, etc. (TODO)
-
 
 ## Vorgehen
 
@@ -30,11 +29,10 @@ Aufruf des Python scripts [create_metadata.py](create_metadata.py) über Kommand
 python create_metadata.py
 ```
 
-## Nächstes Kapitel 
+## Nächstes Kapitel
 
 [3 - Objekte anlegen](3_Objekte.md)
 
 ## Vorheriges Kapitel
-
 
 [1 - Inventar erstellen](1_Inventar.md)

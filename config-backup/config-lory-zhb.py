@@ -2,7 +2,7 @@
 # not allowed: characters ~ “ # % & * : < > ? / \ { | }
 
 collection_id = 'lory_zhb'
-collection = 'LORY ZHB-Collection'
+collection = 'Lory ZHB-Community'
 ingest_workflow = 'zenodo' 
 keywords = []  # array
 sets = ['zhb', 'lory', 'lory_zhb'] # array
@@ -14,21 +14,27 @@ inventory_xlsx = 'lory_zhb_inventory.xlsx'
 # metadata formats
 
 marcxml = 'False'
-marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
-
 datacite = 'True'
 dc = 'True'
 apidata = 'True'
-zenodo_set = 'user-lory_zhb' # OAI set name, eg. user-lory
+tei = 'False'
+
+# metadata base urls
+
+marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
+
 zenodo_baseurl = 'https://zenodo.org/oai2d'
+zenodo_set = 'user-lory_zhb' # OAI set name, eg. user-lory
 zenodo_api = 'https://zenodo.org/api/records'
+
+ecodices_url = 'https://www.e-codices.unifr.ch/xml/tei_published' # for tei format
 
 
 # user information 
 
 user_name = 'Kathrin Heim'
 user_address = 'mailto:kathrin.heim@zhbluzern.ch'
-user_root = "C:/Users/HeimK/switchdrive/jupyter/dlza"
+user_root = "G:/Research10/ZHB-DLZA/dlza"
 
 
 # organisation information
@@ -42,9 +48,7 @@ organisation_address = 'mailto:lit@zhbluzern.ch'
 
 dlza_root = 'D:/Ingest'
 gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
-#gocfl = 'gocfl.exe'
 gocfl = 'gocfl'
-
 
 # general configuration
 

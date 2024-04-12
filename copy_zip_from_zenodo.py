@@ -1,9 +1,10 @@
-import fitz  # PyMuPDF
+#import fitz  # PyMuPDF
 import requests
 import json
 import os
 import time
 import config
+import hashlib
 from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
@@ -20,7 +21,15 @@ zenodo_api = config.zenodo_api
 
 download_manually = f'{community}_download_manually.txt'
 counter = 0
-debug = 20 # adapt for debug mode. For prod: set to 99999
+debug = 20 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
+
+def calculate_md5(file_path):
+    md5_hash = hashlib.md5()
+    with open(file_path, "rb") as f:
+        # Read and update hash string value in blocks of 4K
+        for byte_block in iter(lambda: f.read(4096), b""):
+            md5_hash.update(byte_block)
+    return md5_hash.hexdigest()
 
 # read inventory file
 with open(file_name, encoding="utf-8") as data_file:    
@@ -28,9 +37,10 @@ with open(file_name, encoding="utf-8") as data_file:
     for value in data:
         
         counter = counter+1
-        
+
+        # check if debug mode, only download test files        
         if counter <= debug: 
-    
+
             # prepare object folder: make a directory for each object (SIP)  
             foldername = value["references"][1]
             sip_path = f"{objects_path}/{foldername}"                  
@@ -56,6 +66,7 @@ with open(file_name, encoding="utf-8") as data_file:
                     download_url = entry['links']['content']
                     file_name = entry['key']
                     mimetype = entry['mimetype']
+                    md5_checksum_zenodo = entry['checksum'][4:]
 
                     print("filename:",file_name, "mimetype:",mimetype)
                     local_file = f'{sip_path}/{file_name}'
@@ -69,28 +80,29 @@ with open(file_name, encoding="utf-8") as data_file:
                         # wait 1 second for every record so as not to overshoot zenodo rate limiting. 
                         time.sleep(1) 
 
-                    # distinguish between pdf files and other files
-                    if mimetype == 'application/pdf':
-                        # check some stuff on file's integrity, e.g. count pages
-                        try:
-                            with fitz.open(local_file) as pdf_document:
-                                if pdf_document.page_count != 0:
-                                    print("PDF page count:",pdf_document.page_count)
-                        except Exception as e:
-                            print(f"---   Error checking PDF file {file_name}: {e}")
+                    # checksum comparison from local_file to md5_checksum
+                    try:
+                        md5_checksum = calculate_md5(local_file)
+                        print("MD5 Checksum local_file:", md5_checksum)
+                        print("MD5 checksum Zenodo-File:", md5_checksum_zenodo)
+                        if md5_checksum == md5_checksum_zenodo:
+                            print("Checksums match")
+                        else:
+                            print("checksums don't match!")        
                             # append download url to download_manually.txt
                             with open(download_manually, 'a') as file:
                                 file.write(download_url)
                                 file.write("\n")
-                                print(f"URL {download_url} appended to {download_manually}\n")                                
-                        
-                    else:
-                        print("---   Not a PDF")
+                                print(f"URL {download_url} appended to {download_manually}\n")                             
+
+                    except Exception as e:
+                        print(f"---   Error checking file checksum {local_file}: {e}")
                         # append download url to download_manually.txt
                         with open(download_manually, 'a') as file:
                             file.write(download_url)
                             file.write("\n")
-                            print(f"URL {download_url} appended to {download_manually}\n")
+                            print(f"URL {download_url} appended to {download_manually}\n")                                
+                        
             except KeyError:
                 print("---   KeyError: files not found, download manually:")
                 # append download url to download_manually.txt
