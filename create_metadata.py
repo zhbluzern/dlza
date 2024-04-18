@@ -30,7 +30,7 @@ org_id = config.organisation_id
 
 input_file = f'{config.inventory_file}'
 counter = 0
-debug = 99 # debug mode. How many records are harvested. Enter 9999 for production mode.
+debug = 9999 # debug mode. How many records are harvested. Enter 9999 for production mode.
 
 
 with open(input_file, encoding="utf-8", errors="replace") as data_file:    
