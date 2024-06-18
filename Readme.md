@@ -1,8 +1,8 @@
 # Readme DLZA @ zhbluzern
 
-Diese Python scripts dienen zur Aufbereitung der Datenobjekte und Metadaten aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA) der ZHB Luzern, basierend auf der GOCFL implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
+Diese Python scripts dienen zur Aufbereitung der SIP (Datenobjekte und Metadaten) aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA), basierend auf der GOCFL implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
 
-Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (LORY, LARA) sowie weiteren Sammlungen aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow, aber folgender Basis-Workflow gilt für alle Sammlungen.
+Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (LORY, LARA) sowie Sammlungen aus Zentralgut aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow (internes Dokument auf Stackfield), aber folgender Basis-Workflow gilt für alle Sammlungen.
 
 ## Voraussetzungen
 
@@ -14,14 +14,15 @@ Alle Scripts müssen lokal auf dem Rechner laufen. Dazu muss Python installiert 
 
 Python-Bibliotheken nachinstallieren: z.b. mittels
 
-    !pip install python-dotenv
+    pip install python-dotenv
 
-Sämtliche Metadaten und Objekte werden lokal erstellt, bzw. vorbereitet.
-Erst danach (und nach Virencheck) werden die fertigen files auf die DLZA Workbench geschoben.
+Sämtliche SIP werden lokal erstellt, bzw. vorbereitet. Erst danach (und nach Virencheck) werden die fertigen SIP auf die DLZA Workbench geschoben.
+Die DLZA Workbench der ZHB (Windows-Server) kommt nur für GOCFL und ONA (Verschiebung der AIP nach Basel) zum Einsatz. Diese Prozesse sowie die Konfiguration der Workbench sind in einem internen Dokument beschrieben (Stackfield).
 
 ### Eingabedateien
 
-Für alle weiteren Schritte wird ein Input file benötigt mit den Titeln dieser Collection. Es wird im [Kapitel 1](1_Inventar.md) näher erläutert, wie die Datei aufbereitet sein soll.
+Für alle weiteren Schritte wird eine Eingabedatei (xlsx) benötigt mit den Titeln dieser Collection. Es wird im [Kapitel 1](1_Inventar.md) näher erläutert, wie die Datei aufbereitet sein soll.
+Die Eingabedateien werden nicht auf Github veröffentlicht.
 
 ### API Keys im .env file
 
@@ -31,6 +32,7 @@ Siehe [Using env files for environment variables in python applications](https:/
 
 ## Basiskonfiguration mit config.py
 
+Auf Github wird nur eine Beispieldatei der config.py veröffentlicht. Die ZHB-Spezifikationen für die config.py sind in einem internen Dokument (Stackfield) festgehalten.
 Bei jedem Workflow bzw. für jede Collection ist das Anpassen der Datei config.py notwendig.
 Die Datei kann mit einem Editor (z.B. notepad++ oder VS Code) geöffnet und bearbeitet werden, wie eine normale Textdatei. Die config.py muss ebenfalls im lokalen Verzeichnis liegen (gleiche Ebene wie scripts und .env file).
 
@@ -46,29 +48,29 @@ Die Konfigurationen, welche für jeden Ingest angepasst werden müssen, sind mar
 
 Dieser Bereich muss für jede collection angepasst werden. Bsp. E-Manuscripta:
 
-    collection_id = 'sosa_e-manus'
+    collection_id = 'emanus'
     collection = 'ZHB Sosa E-Manuscripta'
     ingest_workflow = 'e-manuscripta'
     keywords = []  # array
-    sets = ['e-manuscripta', 'zhb', 'sosa', 'lara']
-    input_file = 'e-codices.xlsx'
-    inventory_file = 'e-codices_inventory.json'
-    inventory_xlsx = 'e-codices_inventory.xlsx'
+    sets = ['e-manuscripta', 'zhb']
+    input_file = 'e-manuscripta.xlsx'
+    inventory_file = 'e-manuscripta_inventory.json'
+    inventory_xlsx = 'e-manuscripta_inventory.xlsx'
 
 Aus diesem Abschnitt werden zentrale Daten für alle weiteren Schritte geholt. Die Bezeichnung des ingest-workflows wird auch für die URN benutzt.
 
 ### metadata formats (anpassen)
 
 Hier wird angegeben, welche Metadaten für diese collection abgeholt werden, und über welche Schnittstelle.
-Entsprechende Formate auf 'True' setzen, z.B. wenn Dublin-Core-Daten hinzugefügt werden sollen:
+Entsprechende Formate auf 'True' setzen, z.B. wenn MARC-Daten hinzugefügt werden sollen:
 
-    marcxml = 'False'
-    datacite = 'True'
-    dc = 'True'
-    apidata = 'True'
+    marcxml = 'True'
+    datacite = 'False'
+    dc = 'False'
+    apidata = 'False'
     tei = 'False'
 
-Zu jedem Format sollte die Base-URL für die Abholung der Metadaten überprüft werden, z.B. Alma-SRU-Schnittstelle:
+Zu jedem Format sollte die Base-URL für die Abholung der Metadaten überprüft werden, z.B. Alma-SRU-Schnittstelle (IZ-spezifische Codes in der URL anpassen)
 
     marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
 
@@ -77,7 +79,7 @@ Es sind noch nicht alle Metadatenformate abgedeckt (im Aufbau). Folgende Metadat
 
     marcxml (xml via SRU aus Alma)
     datacite/dc (xml via OAI aus Zenodo)
-    api-data (json via http request von Zenodo)
+    api-data (json via http request von Zenodo REST API)
     tei (xml via http request von ecodices)
 
 ### user / organisation information
@@ -85,24 +87,24 @@ Es sind noch nicht alle Metadatenformate abgedeckt (im Aufbau). Folgende Metadat
 Name der Ingest-Person bzw. Ingest-Organisation sollte hier angepasst werden. Wichtig ist auch der Root-Ordner des users, in welchem die Daten aufbereitet werden, bevor sie zur Workbench verschoben werden. Muss i.d.R. nur einmal angepasst werden.
 
     user_name = 'Vorname Name'
-    user_address = 'mailto:vorname.name@zhbluzern.ch'
-    user_root = "G:/Research10/ZHB-DLZA/dlza_ingest"
+    user_address = 'mailto:vorname.name@myinstitution.ch'
+    user_root = "C:/temp"
 
     organisation = 'Zentral- und Hochschulbibliothek Luzern'
     organisation_id = 'zhb'
-    organisation_address = 'mailto:lit@zhbluzern.ch'
+    organisation_address = 'mailto:organisation@myinstitution.ch'
 
 ### DLZA Workbench information
 
-Hier muss in der Regel nichts angepasst werden. Die Pfade sind derzeit für die ZHB-Workbench konfiguriert.
+Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordner sowie der Pfad für die gocfl-config konfiguriert werden, damit der Create-Befehl korrekt erstellt wird.
 
     dlza_root = 'D:/Ingest'
-    gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
+    gocfl_conf = 'config.toml'
     gocfl = 'gocfl.exe'
 
 ### general configuration
 
-Basis-Url-Konfiguration für diverse Schnittstellen und Resolver. Hier muss normalerweise nichts angepasst werden.
+Basis-Url-Konfiguration für diverse Schnittstellen und Resolver. Hier muss normalerweise nichts angepasst werden (PrimoVE Permalink anpassen an eigene Institution).
 
     baseurl_doi = 'https://doi.org/'
     baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma'
@@ -121,7 +123,7 @@ Ordner mit name = collection_id, darin folgende Unterordner:
 
 Die weiteren Scripts basieren auf dieser Directory-Logik. Das Python script [create_dirs.py](create_dirs.py) kann dazu verwendet werden, diese Ordner automatisch aus der config.py zu erstellen. Dabei werden alle noch fehlenden Ordner erstellt, es wird nichts gelöscht oder überschrieben. Die Ordner können aber auch von Hand erstellt werden.
 
-Aufruf des scripts in der Kommandozeile im Root-Ordner (z.B. mittels Shift-Rechtsklick, Powershell-Fenster hier öffnen):
+Aufruf des scripts in der Kommandozeile im Root-Ordner (z.B. mittels Shift-Rechtsklick, Powershell-Fenster hier öffnen, oder cmd im Root-Ordner öffen):
 
 ```
 python create_dirs.py
