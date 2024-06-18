@@ -1,22 +1,22 @@
 # collection: 
 # not allowed: characters ~ “ # % & * : < > ? / \ { | }
 
-collection_id = 'lory_zhb'
-collection = 'Lory ZHB-Community'
-ingest_workflow = 'zenodo' 
+collection_id = 'sosa_emanus'
+collection = 'ZHB Sosa E-Manuscripta'
+ingest_workflow = 'e-manuscripta' 
 keywords = []  # array
-sets = ['zhb', 'lory', 'lory_zhb'] # array
-input_file = 'lory_zhb.xlsx'
-inventory_file = 'lory_zhb_inventory.json'
-inventory_xlsx = 'lory_zhb_inventory.xlsx'
+sets = ['e-manuscripta', 'zhb', 'sosa', 'lara'] # array
+input_file = 'e-manuscripta.xlsx'
+inventory_file = 'e-manuscripta_inventory.json'
+inventory_xlsx = 'e-manuscripta_inventory.xlsx'
 
 
 # metadata formats
 
-marcxml = 'False'
-datacite = 'True'
-dc = 'True'
-apidata = 'True'
+marcxml = 'True'
+datacite = 'False'
+dc = 'False'
+apidata = 'False'
 tei = 'False'
 
 # metadata base urls
