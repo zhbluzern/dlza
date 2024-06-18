@@ -7,11 +7,7 @@ Dieses Script geht davon aus, dass im Unterordner objects/{signature}/ ein weite
 
 ## config.py
 
-In der Config wird die aktuell zu verarbeitende Collection sowie diverse Dateipfade konfiguriert. Bspw. für E-Manuscripta:
-
-    collection_id = 'sosa_emanus'
-    dlza_root = 'd:/Ingest'
-    gocfl_conf = 'd:/Ingest/config/zhb-config.toml'
+In der Config wird die aktuell zu verarbeitende Collection sowie diverse Dateipfade konfiguriert, siehe [Readme](Readme.md)
 
 ### signature
 
@@ -31,7 +27,7 @@ Die gocfl create Befehle für alle Signaturen werden gemäss <https://github.com
 
 Muster:
 
-    gocfl create ./archiv.zip ./object-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./info.json
+    gocfl create ./archive.zip ./object-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./info.json
 
 Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.dat) mit dem jeweiligen Create-Befehl. Aufruf:
 
@@ -39,7 +35,7 @@ Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine au
 
 ## Display Befehl für gocfl generieren
 
-Das Script erstellt zusätzlich den Display-Befehl gemäss <https://github.com/je4/gocfl/blob/main/docs/display.md> .
+Das Script erstellt zusätzlich den Display-Befehl gemäss <https://github.com/je4/gocfl/blob/main/docs/display.md>.
 Der Display-Befehl wird in eine neue, ausführbare Datei (.dat) in das dazugehörige Display-File geschrieben.
 
 ## Weitere Schritte
@@ -47,15 +43,16 @@ Der Display-Befehl wird in eine neue, ausführbare Datei (.dat) in das dazugehö
 Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Die genaue Doku dazu ist auf Stackfield (ZHB-Intern). Kurzfassung:
 
 1. Gesamter collection-ordner auf Viren überprüfen
-2. Je nach Objects: Dateien umwandeln in andere Formate (z.B. PDF/A)
+2. Je nach Objects: Dateien analysieren mit DROID und bei Bedarf vorher in Archiv-Format umwandeln.
 3. Collection-Ordner auf Workbench verschieben (mittels Transfer-Laufwerk)
-4. Auf Workbench: Wenn notwendig, Zipkapseln entzippen
+4. Auf Workbench: Wenn notwendig, Zipkapseln entzippen, Metadaten aus ZIP-Kapseln von objects zu metadata directory verschieben
 5. Auf Workbench: Tika starten
 6. Auf Workbench: gocfl-create-Datei ausführen, Konsole auf Fehlermeldungen prüfen
 7. Auf Workbench: gocfl-display-Datei ausführen, Report erstellen
-8. gocfl-Archivkapseln mittels ONA nach Basel schicken (TODO)
-9. Reports und Inventory auf ZHB-DLZA ablegen. (TODO)
-10. Update in Originalsysteme ausführen (TODO)
+8. gocfl-Archivkapseln mittels ONA nach Basel schicken
+9. DLZA-Monitoring prüfen (sind AIP auf den storages angekommen und korrekt?)
+10. Inventory/Reports auf ZHB-DLZA ablegen, Workbench aufräumen.
+11. Update in Originalsysteme ausführen (TODO)
 
 ## Zurück zur Übersicht
 

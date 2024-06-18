@@ -19,7 +19,7 @@ Die Zipkapseln sind alle nach folgender Struktur oder ähnlich benannt:
     000190118_20150320T000256_master_ver1.zip
     10_7891_e-manuscripta-108732.zip
 
-Die Objekte liegen auf G:\ZHB-Sosa_Digital\digital. Die vollständigen Pfade auf G sind in der Eingabedatei ergänzt und ist in die Infojson unter 'additional' abgelegt.
+Die Objekte liegen auf dem ZHB-Netzlaufwerk. Die vollständigen Pfade auf G sind in der Eingabedatei ergänzt und ist in die Infojson unter 'additional' abgelegt.
 Der Dateipfad auf der Workbench wird nach dem DOI benannt. Script: [copy_zip_from_directory.py](copy_zip_from_directory.py)
 
 Aufruf via Konsole:
@@ -51,7 +51,7 @@ OAI-PMH API harvesting: 120 requests per minute
 
 ### Caveat: manuelles entzippen
 
-Die AIPs liegen nun in einigen Fällen als ZIP-File im Ordner 'objects', im Unterordner der jeweiligen Signatur. Es macht keinen Sinn, ZIP-Files in ein ZIP-Archiv zu ingesten. Daher müssen die ZIP-Files vor dem Ingest entzippt und die Ordner danach bereinigt werden (ZIP-Files löschen). Dies sind zum Zeitpunkt alles manuelle Prozesse. Das Entzippen kann auch erst auf der Workbench stattfinden, so dauert der Transfer nicht so lange.
+Die AIPs liegen nun in einigen Fällen als ZIP-File im Ordner 'objects', im Unterordner der jeweiligen Signatur. Es macht keinen Sinn, ZIP-Files in ein ZIP-Archiv zu ingesten. Daher müssen die ZIP-Files vor dem Ingest entzippt und die Ordner danach bereinigt werden (ZIP-Files löschen). Dies sind zum aktuellen Zeitpunkt alles manuelle Prozesse. Das Entzippen kann auch erst auf der Workbench stattfinden, so dauert der Transfer nicht so lange.
 
 ## Nächstes Kapitel
 

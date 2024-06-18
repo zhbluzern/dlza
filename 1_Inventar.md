@@ -38,7 +38,8 @@ Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert ins working
 
 ## Variante A: Input-File aus Excel (Alma)
 
-Standardverfahren: Viele collections der ZHB können mit einer Eingabedatei verarbeitet werden, die relativ leicht aus Alma exportiert werden kann. Die Sammlungen der Sosa sind alle in Alma in einem öffentlichen Set in der RZS gelistet.
+Standardverfahren (für ZHB-Bestände): 
+Viele collections können mit einer Eingabedatei verarbeitet werden, die relativ leicht aus Alma exportiert werden kann. Die Sammlungen der ZHB sind alle in Alma in einem öffentlichen Set in der RZS gelistet. Eine separate Anleitung dazu findet sich auf Stackfield, Schulungsunterlagen zur Erstellung von Sets gibt es bei SLSP oder Ex Libris. 
 
 Die Export-Datei aus Alma wird leicht überarbeitet. Nicht benötigte Spalten werden gelöscht, einige Daten müssen gesplitted werden. Folgende Spalten werden benötigt:
 
