@@ -1,24 +1,27 @@
 import json
 import pandas as pd
 import config
+from pathlib import Path
 from datetime import datetime
 
 # needed variables: files, paths, input
 
 input_file = config.input_file
 collection = config.collection_id
-info_dir = f'{collection}/{config.info_path}/'
 urn = config.ingest_workflow
 org_id = config.organisation_id
 coll_id = config.collection_id
-fulljsonfile = f'{config.inventory_file}'
-fullexcelfile = f'{config.inventory_xlsx}'
+fulljsonfile = f'{collection}/{collection}_inventory.json'
+fullexcelfile = f'{collection}/{collection}_inventory.xlsx'
 
 completeSet = []
 
 today = datetime.today().strftime('%Y-%m-%d')
 now = datetime.now().isoformat()
 doc_counter = 0
+
+# create folder for current collection, if it does not exist already:
+Path(f'{collection}').mkdir(parents=True, exist_ok=True)
 
 # Read the Excel file into a pandas DataFrame
 df = pd.read_excel(input_file)
@@ -48,7 +51,7 @@ for _, row in df.iterrows():
         "deprecates": "",
         "references": [],
         "ingest_workflow": urn,
-        "additional": ""
+        "additional": []
     }
     
     # identifiers
@@ -56,6 +59,7 @@ for _, row in df.iterrows():
     doi = row['DOI']
     mms_id = str(row['MMS ID'])
     callnumber = row['Call number']
+    recnumber = str(row['Record number'])
     title = row['Title']
     sip_path = row['Dateipfad']
     external_id = str(row['externe ID'])
@@ -63,18 +67,24 @@ for _, row in df.iterrows():
     # folder name and signature:
     foldername = doi.replace('.','_').replace('/','_')
     signature = f'{org_id}:{coll_id}_{foldername}'
+
+    # create subfolders, if they do not exist already:
+    Path(f'{collection}/{foldername}/data').mkdir(parents=True, exist_ok=True)
+    Path(f'{collection}/{foldername}/metadata').mkdir(parents=True, exist_ok=True)
+    Path(f'{collection}/{foldername}/ingest').mkdir(parents=True, exist_ok=True)
     
     # references
     doiurl = config.baseurl_doi+doi
     almaurl = config.baseurl_alma+mms_id
+    license = row['License']
     
     #complete info.json
     
-    infoSet["identifiers"] = ['doi:'+doi, 'mmsid:'+mms_id, org_id+':'+callnumber, urn+':'+external_id]
-    infoSet["references"] = [doiurl, almaurl, foldername]
+    infoSet["identifiers"] = ['doi:'+doi, 'mmsid:'+mms_id, org_id+':'+callnumber,'rec:'+recnumber, urn+':'+external_id]
+    infoSet["references"] = [doiurl, almaurl, 'sip:'+foldername]
     infoSet["signature"] = signature
     infoSet["title"] = title
-    infoSet["additional"] = sip_path.replace('\\','/')
+    infoSet["additional"] = [sip_path.replace('\\','/'), license]
 
     #print(infoSet)
     
@@ -82,9 +92,9 @@ for _, row in df.iterrows():
     
     # Write the infoSet to a JSON file
     info_json = json.dumps(infoSet, indent=4, ensure_ascii=False)
-    infofile = f"{info_dir}{foldername}.json"
+    infofile = f"{collection}/{foldername}/metadata/info.json"
 
-    with open(infofile, "w") as outfile:
+    with open(infofile, "w", encoding="utf-8") as outfile:
         outfile.write(info_json)
         print(f"info.json saved as {infofile}")
         
@@ -94,7 +104,7 @@ fulldump = json.dumps(completeSet, indent=4, ensure_ascii=False)
 
 with open(fulljsonfile, "w", encoding="utf-8") as outfile:
     outfile.write(fulldump)
-    print(f"---\nAll JSON written to {fulljsonfile}")
+    print(f"---\nAll Inventory JSON written to {fulljsonfile}")
     
 # Writing completeSet as Excel file
 

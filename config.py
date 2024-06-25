@@ -1,61 +1,45 @@
 # collection: 
-# not allowed: characters ~ “ # % & * : < > ? / \ { | }
 
 collection_id = 'emanus'
 collection = 'ZHB Sosa E-Manuscripta'
+zenodo_set = 'user-zenodo' # Zenodo OAI set name, eg. user-lory
 ingest_workflow = 'e-manuscripta' 
 keywords = []  # array
-sets = ['e-manuscripta', 'zhb'] # array
+sets = ['e-manuscripta', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
 input_file = 'e-manuscripta.xlsx'
-inventory_file = 'e-manuscripta_inventory.json'
-inventory_xlsx = 'e-manuscripta_inventory.xlsx'
 
-# metadata formats
+# metadata formats: 
 
 marcxml = 'True'
+mets = 'False'
+mods = 'False'
 datacite = 'False'
 dc = 'False'
 apidata = 'False'
 tei = 'False'
 
-# metadata base urls
-
-marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id=' # Alma SRU Base URL, change your institution zone and code
-
-zenodo_baseurl = 'https://zenodo.org/oai2d'
-zenodo_set = 'user-lory' # Zenodo OAI set name, eg. user-lory
-zenodo_api = 'https://zenodo.org/api/records'
-
-ecodices_url = 'https://www.e-codices.unifr.ch/xml/tei_published' # for tei format
-
 # user information 
 
-user_name = 'Vorname Nachname'
-user_address = 'mailto:vorname.nachname@myinstitution.ch'
-user_root = "C:/temp"
 
 # organisation information
 
 organisation = 'Zentral- und Hochschulbibliothek Luzern'
 organisation_id = 'zhb'
-organisation_address = 'mailto:organisation@myinstitution.ch'
 
 
 # DLZA Workbench information
 
 dlza_root = 'D:/Ingest'
-gocfl_conf = 'config.toml'
+gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
 gocfl = 'gocfl'
+ona_conf = 'D:/Ingest/config/ona-config.yml'
 
 # general configuration
 
-baseurl_doi = 'https://doi.org/'
+baseurl_doi = 'https://doi.org/' # DOI baseurl
 baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma' # Base URL for your Library catalogue permalink
-
-# subdirectories 
-
-info_path = 'info'
-metadata_path = 'metadata'
-object_path = 'objects'
-gocfl_path = 'gocfl'
+baseurl_marc = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id=' # Alma SRU Base URL, change your institution zone and code
+baseurl_zenodo_oai = 'https://zenodo.org/oai2d' # OAI-PMH url
+baseurl_zenodo_api = 'https://zenodo.org/api/records' # for api export
+baseurl_ecodices = 'https://www.e-codices.unifr.ch/xml/tei_published' # for tei format
 

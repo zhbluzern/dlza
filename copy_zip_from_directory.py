@@ -19,7 +19,7 @@ with open(file_name, encoding="utf-8", errors='replace') as data_file:
 
         counter += 1
         # get path to G drive:
-        g_path = value["additional"]
+        g_path = value["additional"][0]
         #print(f"Origin path: {g_path}")
 
         # create new object folder name (SIP path). The full path is needed here for copying the files.

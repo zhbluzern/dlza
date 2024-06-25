@@ -9,26 +9,24 @@ import time
 
 # which metadata is available:
 marc = config.marcxml
-marc_url = config.marcxml_baseurl
+marc_url = config.baseurl_marc
 
 datacite = config.datacite
 dublincore = config.dc
 apidata = config.apidata
-zenodo_url = config.zenodo_baseurl
-zenodo_api = config.zenodo_api
+zenodo_url = config.baseurl_zenodo_oai
+zenodo_api = config.baseurl_zenodo_api
 
 tei = config.tei
-ecodices_url = config.ecodices_url
+ecodices_url = config.baseurl_ecodices
 
 # general config:
 
 urn = config.ingest_workflow
 collection = config.collection_id
-
-md_path = f'{collection}/{config.metadata_path}'
 org_id = config.organisation_id
 
-input_file = f'{config.inventory_file}'
+input_file = f'{collection}/{collection}_inventory.json'
 counter = 0
 debug = 9999 # debug mode. How many records are harvested. Enter 9999 for production mode.
 
@@ -42,8 +40,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
         if counter<= debug: 
 
             # create new directory for each signature (ignore, if it already exists)            
-            foldername = value["references"][-1]
-            Path(f'{md_path}/{foldername}').mkdir(parents=True, exist_ok=True)   
+            foldername = value["references"][-1][4:]
 
             identifiers = {}
             for item in value["identifiers"]:
@@ -64,7 +61,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     raise Exception(f"SRU request failed with status code {response.status_code}")
 
                 # Save the response content as xml to a new directory
-                marcxmlfile = f"{md_path}/{foldername}/{mmsid}.xml"
+                marcxmlfile = f"{collection}/{foldername}/metadata/{mmsid}.xml"
 
                 with open(marcxmlfile, 'wb') as file:
                     file.write(response.content)
@@ -78,7 +75,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                 zenodo_id = identifiers['zenodo']
                 sickle = Sickle(zenodo_url)            
                 datacite_response = sickle.GetRecord(identifier=f"oai:zenodo.org:{zenodo_id}", metadataPrefix='oai_datacite')
-                datacitefile = f'{md_path}/{foldername}/{zenodo_id}_datacite.xml'
+                datacitefile = f'{collection}/{foldername}/metadata/{zenodo_id}_datacite.xml'
 
                 with open(datacitefile, 'w', encoding="utf-8") as file:
                     file.write(datacite_response.raw)
@@ -94,7 +91,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                 zenodo_id = identifiers['zenodo']
                 sickle = Sickle(zenodo_url)            
                 dc_response = sickle.GetRecord(identifier=f"oai:zenodo.org:{zenodo_id}", metadataPrefix='oai_dc')
-                dc_file = f'{md_path}/{foldername}/{zenodo_id}_dc.xml'
+                dc_file = f'{collection}/{foldername}/metadata/{zenodo_id}_dc.xml'
 
                 with open(dc_file, 'w', encoding="utf-8") as file:
                     file.write(dc_response.raw)
@@ -115,7 +112,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     raise Exception(f"API request failed with status code {response.status_code}")
 
                 # Save the response content as json to a new directory
-                zenodo_json = f"{md_path}/{foldername}/{zenodo_id}.json"
+                zenodo_json = f"{collection}/{foldername}/metadata/{zenodo_id}.json"
 
                 with open(zenodo_json, 'wb') as file:
                     file.write(response.content)
@@ -147,7 +144,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     
                 print(query)
                 # Save the response content as json to a new directory
-                tei_published = f"{md_path}/{foldername}/{tei_id}.xml"
+                tei_published = f"{collection}/{foldername}/metadata/{tei_id}.xml"
 
                 with open(tei_published, 'wb') as file:
                     file.write(response.content)

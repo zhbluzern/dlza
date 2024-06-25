@@ -11,6 +11,7 @@ metadata =  f'{coll}/{config.metadata_path}'
 info = f'{coll}/{config.info_path}'
 objects = f'{coll}/{config.object_path}'
 gocfl_conf = config.gocfl_conf
+ona_conf = config.ona_conf
 gocfl = config.gocfl
 
 # input file
@@ -41,15 +42,24 @@ with open(f_info, encoding="utf-8", errors='replace') as data_file:
         
         # display string
         display_string = f'{gocfl} display {storage_root}'
+
+        # ona string TODO example:
+        #ona_string = f'ona ingest -w -p D:\Ingest\zhb_lory_zhb_10_5281_zenodo_10175.zip -c D:\Ingest\config\ona-config.yml'
+        ona_string = f'ona ingest -w -p {storage_root} -c {ona_conf}'
         
         # write strings to file
         create_file = f'{coll}/{files}/{foldername}_create.bat'
         display_file = f'{coll}/{files}/{foldername}_display.bat'
+        ona_file = f'{coll}/{files}/{foldername}_ona.bat'
         with open(create_file, 'w', encoding="utf-8", errors='replace') as file:
             file.write(create_string)
 
         with open(display_file, 'w', encoding="utf-8", errors='replace') as file:
             file.write(display_string)
+
+        with open(ona_file, 'w', encoding="utf-8", errors='replace') as file:
+            file.write(ona_string)
+
 
                
 print("Finished at ",datetime.today().strftime('%Y-%m-%d %H:%M:%S'))                
