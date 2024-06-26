@@ -2,10 +2,11 @@ import os
 import config
 import json
 from datetime import datetime
-import zipfile
+#import zipfile
 import shutil
 from pathlib import Path
 
+# get config variables
 localdrive = config.user_root
 org_id = config.organisation_id
 collection = config.collection_id

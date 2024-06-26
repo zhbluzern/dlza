@@ -5,7 +5,7 @@ import config
 
 community = config.collection_id
 output = config.input_file
-zenodoRestUrl = "https://zenodo.org/api/records"
+zenodoRestUrl = config.baseurl_zenodo_api
 headers = {}
 headers["Content-Type"] = "application/json"
 size = '100'
@@ -36,6 +36,7 @@ while localRecordCounter < int(numOfRec):
         resultDet["reference"] = record["doi_url"]
         resultDet["title"]= record["metadata"]["title"]
         resultDet["filepath"]= record["links"]["files"]
+        resultDet["license"] = record["license"]["id"]
         
 
         print(f"#{localRecordCounter}: {record['doi']}")
