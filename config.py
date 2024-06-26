@@ -20,11 +20,15 @@ tei = 'False'
 
 # user information 
 
+user_name = 'Kathrin Heim <kathrin.heim@zhbluzern.ch>'
+user_address = 'mailto:dlza@zhbluzern.ch'
+user_root = 'G:/Research10/ZHB-DLZA/dlza'
 
 # organisation information
 
 organisation = 'Zentral- und Hochschulbibliothek Luzern'
 organisation_id = 'zhb'
+organisation_address = 'mailto:info@zhbluzern.ch'
 
 
 # DLZA Workbench information
