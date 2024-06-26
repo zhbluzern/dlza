@@ -20,9 +20,9 @@ tei = 'False'
 
 # user information 
 
-user_name = 'Kathrin Heim <kathrin.heim@zhbluzern.ch>'
+user_name = 'name of ingester <email@inst.org>'
 user_address = 'mailto:dlza@zhbluzern.ch'
-user_root = 'G:/Research10/ZHB-DLZA/dlza'
+user_root = 'G:/temp/dlza'
 
 # organisation information
 
