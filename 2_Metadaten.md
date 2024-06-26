@@ -1,10 +1,10 @@
 # 2 - Metadaten abholen
 
-Für gocfl müssen die semantischen Metadaten pro Objekt in einem eigenen Ordner liegen. Dazu wird ein Unterordner 'signature' im Ordner 'metadata' erstellt.
+Für gocfl müssen die semantischen Metadaten pro Objekt in einem eigenen Ordner 'metadata' liegen. 
 
 ### Metadaten aus Alma (SRU, marcxml)
 
-Mit der MMS ID werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter metadata/{signature}/mmsid.xml.
+Mit der MMS ID werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter collection/sip/metadata/mmsid.xml.
 
 ### Datacite - Dublin Core (OAI, XML/json)
 

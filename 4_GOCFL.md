@@ -3,7 +3,7 @@
 Dieses Python script erstellt die gocfl create-Befehle für eine bestimmte Collection.
 Die Doku für den Aufbau eines gocfl create Befehls befindet sich hier: <https://github.com/je4/gocfl/blob/main/docs/create.md>
 
-Dieses Script geht davon aus, dass im Unterordner objects/{signature}/ ein weiterer Unterordner liegt, dessen Content ins Archiv gelagert wird.
+Dieses Script geht davon aus, dass im Unterordner collection/sip/data das Objekt liegt, welches ins Archiv gelagert wird.
 
 ## config.py
 
@@ -13,7 +13,7 @@ In der Config wird die aktuell zu verarbeitende Collection sowie diverse Dateipf
 
 Die Signature ist zentral für die Erstellung des storage roots, sowie das Auffinden der Objekt-Pfade, Metadaten und Info-Dateien.  
 
-### objects
+### data
 
 Das script prüft nicht, ob die SIP-Objekte tatsächlich vorhanden bzw. entzippt sind, dies muss vorher (manuell) überprüft werden.
 
@@ -27,25 +27,29 @@ Die gocfl create Befehle für alle Signaturen werden gemäss <https://github.com
 
 Muster:
 
-    gocfl create ./archive.zip ./object-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./info.json
+    gocfl create ./archive.zip ./data-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./info.json
 
-Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.dat) mit dem jeweiligen Create-Befehl. Aufruf:
+Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.bat) mit dem jeweiligen Create-Befehl. Aufruf:
 
     python create_gocfl.py
 
 ## Display Befehl für gocfl generieren
 
 Das Script erstellt zusätzlich den Display-Befehl gemäss <https://github.com/je4/gocfl/blob/main/docs/display.md>.
-Der Display-Befehl wird in eine neue, ausführbare Datei (.dat) in das dazugehörige Display-File geschrieben.
+Der Display-Befehl wird in eine neue, ausführbare Datei (.bat) in das dazugehörige Display-File geschrieben.
+
+## ONA Befehl generieren
+
+Das Script erstellt zusätzlich eine .bat-Datei mit dem ona-Befehl, siehe https://gitlab.switch.ch/ub-unibas/dlza/ona sowie interne Doku auf Stackfield. 
 
 ## Weitere Schritte
 
 Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Die genaue Doku dazu ist auf Stackfield (ZHB-Intern). Kurzfassung:
 
 1. Gesamter collection-ordner auf Viren überprüfen
-2. Je nach Objects: Dateien analysieren mit DROID und bei Bedarf vorher in Archiv-Format umwandeln.
+2. Je nach SIP: Dateien analysieren mit DROID und bei Bedarf vorher in Archiv-Format umwandeln.
 3. Collection-Ordner auf Workbench verschieben (mittels Transfer-Laufwerk)
-4. Auf Workbench: Wenn notwendig, Zipkapseln entzippen, Metadaten aus ZIP-Kapseln von objects zu metadata directory verschieben
+4. Auf Workbench: Wenn notwendig, Zipkapseln entzippen, Metadaten aus ZIP-Kapseln von data zu metadata directory verschieben
 5. Auf Workbench: Tika starten
 6. Auf Workbench: gocfl-create-Datei ausführen, Konsole auf Fehlermeldungen prüfen
 7. Auf Workbench: gocfl-display-Datei ausführen, Report erstellen

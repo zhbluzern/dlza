@@ -1,8 +1,8 @@
 
 # 1 - Erstellung der info.json und des Inventory
 
-Ein Python-Script erstellt eine info.json Datei für alle Objekte der Collection und legt sie im Ordner 'info' als JSON Datei ab.
-Doku der Info.json, siehe GOCFL-implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
+Ein Python-Script erstellt eine info.json Datei für alle Objekte der Collection und legt sie im Ordner 'metadata' als JSON Datei ab.
+Doku der info.json, siehe GOCFL-implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
 Vorlage: <https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json>
 
 Vereinfacht gesagt, muss eine info.json folgendermassen aussehen:

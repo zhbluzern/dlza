@@ -50,12 +50,12 @@ Dieser Bereich muss für jede collection angepasst werden. Bsp. E-Manuscripta:
 
     collection_id = 'emanus'
     collection = 'ZHB Sosa E-Manuscripta'
+    zenodo_set = 'user-zenodo' # Zenodo OAI set name, eg. user-lory
     ingest_workflow = 'e-manuscripta'
     keywords = []  # array
     sets = ['e-manuscripta', 'zhb']
     input_file = 'e-manuscripta.xlsx'
-    inventory_file = 'e-manuscripta_inventory.json'
-    inventory_xlsx = 'e-manuscripta_inventory.xlsx'
+
 
 Aus diesem Abschnitt werden zentrale Daten für alle weiteren Schritte geholt. Die Bezeichnung des ingest-workflows wird auch für die URN benutzt.
 
@@ -65,6 +65,8 @@ Hier wird angegeben, welche Metadaten für diese collection abgeholt werden, und
 Entsprechende Formate auf 'True' setzen, z.B. wenn MARC-Daten hinzugefügt werden sollen:
 
     marcxml = 'True'
+    mets = 'False'
+    mods = 'False'
     datacite = 'False'
     dc = 'False'
     apidata = 'False'
@@ -101,6 +103,7 @@ Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordn
     dlza_root = 'D:/Ingest'
     gocfl_conf = 'config.toml'
     gocfl = 'gocfl.exe'
+    ona_conf = 'ona-config.yml'
 
 ### general configuration
 
@@ -109,25 +112,7 @@ Basis-Url-Konfiguration für diverse Schnittstellen und Resolver. Hier muss norm
     baseurl_doi = 'https://doi.org/'
     baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma'
 
-### subdirectories and file formats
 
-Benötigte Ordnerstruktur. Hier sollte in der Regel nichts angepasst werden.
-Diese Ordner müssen auch im lokalen Verzeichnis vorhanden sein:
-
-Ordner mit name = collection_id, darin folgende Unterordner:
-
-     info
-     metadata
-     objects      
-     gocfl
-
-Die weiteren Scripts basieren auf dieser Directory-Logik. Das Python script [create_dirs.py](create_dirs.py) kann dazu verwendet werden, diese Ordner automatisch aus der config.py zu erstellen. Dabei werden alle noch fehlenden Ordner erstellt, es wird nichts gelöscht oder überschrieben. Die Ordner können aber auch von Hand erstellt werden.
-
-Aufruf des scripts in der Kommandozeile im Root-Ordner (z.B. mittels Shift-Rechtsklick, Powershell-Fenster hier öffnen, oder cmd im Root-Ordner öffen):
-
-```
-python create_dirs.py
-```
 
 ## Workflow ZHB-DLZA (Kurzversion)
 
@@ -143,21 +128,23 @@ Die einzelnen Schritte werden ausführlich in den folgenden Kapiteln  beschriebe
 Für jede Archivkapsel der Collection wird eine info.json Datei nach folgendem Schema erstellt:
 <https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json>
 
-Für jeden einzelnen record wird eine info.json-Datei erstellt mit Bezeichnung 'signature'.json. Diese Dateien werden im directory 'info' abgelegt. Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert.
+Für jeden einzelnen record wird eine info.json-Datei erstellt.
+Zugleich wird die Ordnerstruktur 'collection/sip/' erstellt, darin jeweils die sub-directories 'metadata', 'data' und 'ingest'. Die info.json wird im metadata-directory abgelegt.
+Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert.
 
 ### Metadaten (Alma, Zenodo, weitere Systeme)
 
 Mit der record id werden die MARC-/DC-Daten via SRU/OAI aus den Master-Systemen extrahiert und abgespeichert unter 'recid'.xml im directory 'metadata'.
 Weitere Metadaten (z.B. METS/MODS-Daten) können aus andern Systemen hinzugefügt werden.
-Wichtig: die Metadaten müssen pro Objekt in einem eigenen directory 'metadata' zusammegefasst werden.
+Wichtig: die Metadaten müssen pro SIP in einem eigenen directory 'metadata' zusammegefasst werden.
 
 ### Datenobjekte abholen
 
-Dies wird je nach Collection etwas unterschiedlich gehandhabt, da die Datenobjekte nicht einheitlich bezeichnet sind. Die Datenobjekte sollten grundsätzlich im directory 'objects' abgelegt sein. Für Zenodo gibt es ein Download-Script, für einige Digitalisierungsprojekte ein Kopier-Script, wenn die Originalsystempfade bekannt sind.
+Dies wird je nach Collection etwas unterschiedlich gehandhabt, da die Datenobjekte nicht einheitlich bezeichnet sind. Die Datenobjekte sollten grundsätzlich im directory 'data' abgelegt sein. Für Zenodo gibt es ein Download-Script, für einige Digitalisierungsprojekte ein Kopier-Script, wenn die Originalsystempfade bekannt sind.
 
 ### GOCF-Befehle
 
-Die gocfl-CREATE und DISPLAY Befehle werden mittels Script vorbereitet. Mehr dazu auf <https://github.com/je4/gocfl/blob/main/docs/create.md>
+Die gocfl-Befehle für 'create', 'display' und 'ona' werden mittels Script vorbereitet und als Batch-Dateien im ingest-directory abgelegt. Mehr dazu auf <https://github.com/je4/gocfl>
 
 ## Nächstes Kapitel
 

@@ -1,6 +1,6 @@
 # 3 - Datenobjekte abholen
 
-Dieses Script erstellt in 'object' die Unterordner mit dem Identifier, die Files werden ohne weitere Zwischenverarbeitung oder Prüfung hierhin kopiert.
+Dieses Script erstellt in 'data' die Unterordner mit dem Identifier, die Files werden ohne weitere Zwischenverarbeitung oder Prüfung hierhin kopiert.
 Das Migrieren sowie Entzippen erfolgt vorerst manuell.
 
 ## Variante A: Datenobjekte liegen auf einem Laufwerk
