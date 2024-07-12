@@ -1,7 +1,7 @@
 
 # 1 - Erstellung der info.json und des Inventory
 
-Ein Python-Script erstellt eine info.json Datei für alle Objekte der Collection und legt sie im Ordner 'metadata' als JSON Datei ab.
+Ein Python-Script erstellt eine info.json Datei für alle Objekte der Collection und legt sie im Ordner 'ingest' als JSON Datei ab.
 Doku der info.json, siehe GOCFL-implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
 Vorlage: <https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json>
 
@@ -33,7 +33,7 @@ Im Config-File wird die Abteilung (bspw. zhb:...) hinzugefügt, das Script ergä
 
 ## Export info.json
 
-Für jeden einzelnen record wird eine info.json-Datei erstellt im Format info/{signature}.json.
+Für jeden einzelnen record wird eine info.json-Datei erstellt im Ingest-Ordner. 
 Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert ins working directory als Inventar, welche Datenobjekte eingelagert wurden.
 
 ## Variante A: Input-File aus Excel (Alma)
@@ -43,13 +43,16 @@ Viele collections können mit einer Eingabedatei verarbeitet werden, die relativ
 
 Die Export-Datei aus Alma wird leicht überarbeitet. Nicht benötigte Spalten werden gelöscht, einige Daten müssen gesplitted werden. Folgende Spalten werden benötigt:
 
-- Title
-- Record number: wird vorerst nicht benötigt, kann trotzdem stehengelassen werden (alte HAN-Nummer).
+- Title: Titel des Werks
+- Record number: alte HAN-Nummer
 - Call number: aus Spalte Availability splitten, Spalte umbenennen
-- MMS_ID als Text erzwingen (Bsp. '9914249335105505')
-- DOI manuell ergänzen
-- Dateipfad manuell ergänzen
-- externe ID wie z.B. E-Manuscripta ID, E-Codices-Identifier manuell ergänzen
+- MMS ID: als Text erzwingen (Bsp. '9914249335105505')
+- Network ID manuell oder mit separatem Python script ergänzen. Das ist die Alma NZ ID (aus MARC-Feld 001).
+- DOI: manuell ergänzen
+- Dateipfad: manuell ergänzen
+- externe ID: wie z.B. E-Manuscripta ID, E-Codices-Identifier manuell ergänzen
+- License Data: manuell ergänzen. Für Sosa-Bestände normalerweise PDM 1.0 Deed (Public Domain).
+- License Metadata: manuell ergänzen. Für Sosa-Bestände normalerweise CC0 oder CC BY.
 
 Da die Sosa-Sammlungen der ZHB zur Zeit überschaubar sind, hält sich der zeitliche Aufwand dafür in Grenzen.
 Als Alternative zum Direkt-Export aus Alma könnte auch die Excel-App "Excel Alma Lookup" verwendet werden.

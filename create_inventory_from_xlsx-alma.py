@@ -58,6 +58,7 @@ for _, row in df.iterrows():
         
     doi = row['DOI']
     mms_id = str(row['MMS ID'])
+    nz_id = str(row['Network ID'])
     callnumber = row['Call number']
     recnumber = str(row['Record number'])
     title = row['Title']
@@ -76,15 +77,16 @@ for _, row in df.iterrows():
     # references
     doiurl = config.baseurl_doi+doi
     almaurl = config.baseurl_alma+mms_id
-    license = row['License']
+    md_license = row['License Metadata']
+    data_license = row['License Data']
     
     #complete info.json
     
-    infoSet["identifiers"] = ['doi:'+doi, 'mmsid:'+mms_id, org_id+':'+callnumber,'rec:'+recnumber, urn+':'+external_id]
+    infoSet["identifiers"] = ['doi:'+doi, 'mmsid:'+mms_id, org_id+':'+callnumber,'rec:'+recnumber, 'nzid:'+nz_id, urn+':'+external_id]
     infoSet["references"] = [doiurl, almaurl, 'sip:'+foldername]
     infoSet["signature"] = signature
     infoSet["title"] = title
-    infoSet["additional"] = [sip_path.replace('\\','/'), license]
+    infoSet["additional"] = [sip_path.replace('\\','/'), 'license data: '+data_license, 'license metadata: '+md_license]
 
     #print(infoSet)
     
@@ -92,7 +94,7 @@ for _, row in df.iterrows():
     
     # Write the infoSet to a JSON file
     info_json = json.dumps(infoSet, indent=4, ensure_ascii=False)
-    infofile = f"{collection}/{foldername}/metadata/info.json"
+    infofile = f"{collection}/{foldername}/ingest/info.json"
 
     with open(infofile, "w", encoding="utf-8") as outfile:
         outfile.write(info_json)

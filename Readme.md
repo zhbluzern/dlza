@@ -129,7 +129,7 @@ Für jede Archivkapsel der Collection wird eine info.json Datei nach folgendem S
 <https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json>
 
 Für jeden einzelnen record wird eine info.json-Datei erstellt.
-Zugleich wird die Ordnerstruktur 'collection/sip/' erstellt, darin jeweils die sub-directories 'metadata', 'data' und 'ingest'. Die info.json wird im metadata-directory abgelegt.
+Zugleich wird die Ordnerstruktur 'collection/sip/' erstellt, darin jeweils die sub-directories 'metadata', 'data' und 'ingest'. Die info.json wird im ingest-directory abgelegt.
 Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert.
 
 ### Metadaten (Alma, Zenodo, weitere Systeme)

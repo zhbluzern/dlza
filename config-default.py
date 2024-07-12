@@ -2,7 +2,7 @@
 
 collection_id = 'emanus'
 collection = 'ZHB Sosa E-Manuscripta'
-zenodo_set = 'user-lara' # Zenodo OAI set name, eg. user-lory
+zenodo_set = 'user-zenodo' # Zenodo OAI set name, eg. user-lory
 ingest_workflow = 'e-manuscripta' 
 keywords = []  # array
 sets = ['e-manuscripta', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
@@ -20,15 +20,15 @@ tei = 'False'
 
 # user information 
 
-user_name = 'Kathrin Heim <kathrin.heim@zhbluzern.ch>'
+user_name = 'name of ingester <email@inst.org>'
 user_address = 'mailto:dlza@zhbluzern.ch'
-user_root = 'G:/Research10/ZHB-DLZA/dlza'
+user_root = 'C:/temp/dlza'
 
 # organisation information
 
 organisation = 'Zentral- und Hochschulbibliothek Luzern'
 organisation_id = 'zhb'
-organisation_address = 'mailto:info@zhbluzern.ch'
+organisation_address = 'mailto:info@inst.org'
 
 
 # DLZA Workbench information
