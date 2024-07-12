@@ -14,14 +14,17 @@ load_dotenv()
 ACCESS_TOKEN = os.getenv('access_token')
 
 # get config variables
-file_name = config.inventory_file
+localdrive = config.user_root
+org_id = config.organisation_id
+collection = config.collection_id
+
+file_name = f'{collection}/{collection}_inventory.json'
 community = config.collection_id
-objects_path = f'{config.user_root}/{config.collection_id}/{config.object_path}'
-zenodo_api = config.zenodo_api
+zenodo_api = config.baseurl_zenodo_api
 
 download_manually = f'{community}_download_manually.txt'
 counter = 0
-debug = 999 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
+debug = 3 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
 
 def calculate_md5(file_path):
     md5_hash = hashlib.md5()
@@ -39,9 +42,10 @@ with open(file_name, encoding="utf-8") as data_file:
         counter = counter+1
 
         # prepare object folder: make a directory for each object (SIP)  
-        foldername = value["references"][1]
-        sip_path = f"{objects_path}/{foldername}"                  
-        Path(f'{sip_path}').mkdir(parents=True, exist_ok=True)
+        sip_folder = value["references"][-1][4:]
+        #sip_folder = value["identifiers"][-1][4:]
+        data_path = f'{localdrive}/{collection}/{sip_folder}/data/'
+        Path(f'{data_path}').mkdir(parents=True, exist_ok=True)
 
         # check if debug mode, only download test files        
         if counter <= debug: 
@@ -69,7 +73,7 @@ with open(file_name, encoding="utf-8") as data_file:
                     md5_checksum_zenodo = entry['checksum'][4:]
 
                     print("filename:",file_name, "mimetype:",mimetype)
-                    local_file = f'{sip_path}/{file_name}'
+                    local_file = f'{data_path}/{file_name}'
                     
                     # download content
                     response = requests.get(download_url, params={'access_token': ACCESS_TOKEN})
