@@ -2,13 +2,13 @@
 
 Für gocfl müssen die semantischen Metadaten pro Objekt in einem eigenen Ordner 'metadata' liegen. 
 
-### Metadaten aus Alma (SRU, marcxml)
+### Metadaten aus Alma (SRU, marcxml/MODS)
 
-Mit der MMS ID werden die MARC-Daten via SRU aus Alma extrahiert und abgespeichert unter collection/sip/metadata/mmsid.xml.
+Mit der MMS ID werden die Metadaten via SRU als marcxml und MODS aus Alma extrahiert und abgespeichert unter collection/sip/metadata/mmsid.xml.
 
-### Datacite - Dublin Core (OAI, XML/json)
+### Datacite - Dublin Core - ZenodoMARC (OAI, XML/json)
 
-Daten aus Zenodo-Repositories werden mit Datacite- und Dublin-Core Metadaten ins Archiv eingelagert.
+Daten aus Zenodo-Repositories werden mit Datacite-, Dublin-Core- und MARC-Metadaten ins Archiv eingelagert.
 Dazu wird die Zenodo-ID und das OAI-Set benötigt.
 Für Zenodo-Daten soll immer auch die komplette API-Response mitgespeichert werden, da nur hier die access-rights und allfälligen Embargo-Daten hinterlegt sind.
 Rate Limiting Daten für Zenodo (OAI und API): <https://about.zenodo.org/principles/> Punkt 11

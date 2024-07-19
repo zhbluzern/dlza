@@ -24,7 +24,7 @@ zenodo_api = config.baseurl_zenodo_api
 
 download_manually = f'{community}_download_manually.txt'
 counter = 0
-debug = 3 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
+debug = 9999 # adapt for debug mode. For prod: set to 99999 or bigger than the community record hits
 
 def calculate_md5(file_path):
     md5_hash = hashlib.md5()
@@ -43,7 +43,6 @@ with open(file_name, encoding="utf-8") as data_file:
 
         # prepare object folder: make a directory for each object (SIP)  
         sip_folder = value["references"][-1][4:]
-        #sip_folder = value["identifiers"][-1][4:]
         data_path = f'{localdrive}/{collection}/{sip_folder}/data/'
         Path(f'{data_path}').mkdir(parents=True, exist_ok=True)
 
@@ -87,12 +86,11 @@ with open(file_name, encoding="utf-8") as data_file:
                     # checksum comparison from local_file to md5_checksum
                     try:
                         md5_checksum = calculate_md5(local_file)
-                        #print("MD5 Checksum local_file:", md5_checksum)
-                        #print("MD5 checksum Zenodo-File:", md5_checksum_zenodo)
+
                         if md5_checksum == md5_checksum_zenodo:
                             print("Checksums match")
                         else:
-                            print("checksums don't match!")        
+                            print("---------------------------------------------------------------------------------- Checksums don't match!")        
                             # append download url to download_manually.txt
                             with open(download_manually, 'a') as file:
                                 file.write(download_url)

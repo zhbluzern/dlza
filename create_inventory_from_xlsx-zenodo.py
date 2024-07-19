@@ -58,6 +58,7 @@ for _, row in df.iterrows():
         
     doi = row['doi']
     zenodo_id = str(row['zenodo_id'])
+    concept_id = str(row['concept_id'])
     filepath = row["filepath"]
     license = row["license"]
 
@@ -73,7 +74,7 @@ for _, row in df.iterrows():
     
         
     #complete info.json    
-    infoSet["identifiers"] = ['doi:'+doi, 'zenodo:'+zenodo_id]
+    infoSet["identifiers"] = ['doi:'+doi, 'zenodo:'+zenodo_id, 'concept:'+concept_id]
     infoSet["signature"] = signature
     infoSet["references"] = [row["reference"], 'sip:'+foldername]
     infoSet["additional"] = [filepath, license]
@@ -83,7 +84,7 @@ for _, row in df.iterrows():
     
     # Write the infoSet to a JSON file
     info_json = json.dumps(infoSet, indent=4, ensure_ascii=False)
-    infofile = f"{collection}/{foldername}/metadata/info.json"
+    infofile = f"{collection}/{foldername}/ingest/info.json"
 
     with open(infofile, "w", encoding="utf-8") as outfile:
         outfile.write(info_json)

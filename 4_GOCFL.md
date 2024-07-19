@@ -27,7 +27,7 @@ Die gocfl create Befehle für alle Signaturen werden gemäss <https://github.com
 
 Muster:
 
-    gocfl create ./archive.zip ./data-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./info.json
+    gocfl create ./archive.zip ./data-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./ingest/info.json
 
 Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.bat) mit dem jeweiligen Create-Befehl. Aufruf:
 

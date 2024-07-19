@@ -18,3 +18,5 @@
 /inventories-droidreports
 config.py
 config-emanuscripta.py
+/config-backup
+config.py

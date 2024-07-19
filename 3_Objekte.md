@@ -5,22 +5,16 @@ Das Migrieren sowie Entzippen erfolgt vorerst manuell.
 
 ## Variante A: Datenobjekte liegen auf einem Laufwerk
 
-Gültig für Digitalisate aus der Sosa, bzw. Objekte, die auf lokalen Laufwerken liegen.
+Gültig für Digitalisate aus der Sosa der ZHB, bzw. im eingeschränkten Umfang für alle Objekte, die auf lokalen Laufwerken liegen.
 
-*Achtung! Dieses Python script kann in der Ausführung sehr lange dauern, da die Dateien riesig sind.
-Skript hat daher einen Debug-Modus, bitte Anzahl der Objekte einstellen, die abgeholt werden sollen: Variable debug*
+*Achtung! Dieses Python script kann in der Ausführung sehr lange dauern, da die Sosa-Dateien riesig sind.
+Das Skript hat daher einen Debug-Modus, bitte Anzahl der Objekte einstellen, die abgeholt werden sollen: Variable debug*
 
-Voraussetzung: mit VPN verbunden / im unilu-Netzwerk, mit Laufwerk G verbunden.
+Voraussetzung an der ZHB: mit VPN verbunden / im UNET-Netzwerk, mit entsprechendem Laufwerk verbunden.
 
-Aufgrund der geringen Menge und der diversen Metadatenquellen werden diese Zipkapseln von Hand vom Laufwerk G auf die Workbench verschoben. Sie werden alle manuell entzippt.
-
-Die Zipkapseln sind alle nach folgender Struktur oder ähnlich benannt:
-
-    000190118_20150320T000256_master_ver1.zip
-    10_7891_e-manuscripta-108732.zip
-
-Die Objekte liegen auf dem ZHB-Netzlaufwerk. Die vollständigen Pfade auf G sind in der Eingabedatei ergänzt und ist in die Infojson unter 'additional' abgelegt.
+Die Zipkapseln liegen auf dem ZHB-Netzlaufwerk. Die vollständigen Pfade auf G sind in der Eingabedatei ergänzt und ist in der info.json unter 'additional' abgelegt.
 Der Dateipfad auf der Workbench wird nach dem DOI benannt. Script: [copy_zip_from_directory.py](copy_zip_from_directory.py)
+Aufgrund der geringen Menge und der diversen Metadatenquellen werden diese Zipkapseln von Hand auf die Workbench verschoben. Sie werden zur Zeit auch alle manuell entzippt.
 
 Aufruf via Konsole:
 

@@ -33,11 +33,11 @@ while localRecordCounter < int(numOfRec):
         resultDet["created"] = record["updated"]
         resultDet["doi"] = record["doi"]
         resultDet["zenodo_id"] = record["recid"]
+        resultDet["concept_id"] = record["conceptrecid"]
         resultDet["reference"] = record["doi_url"]
         resultDet["title"]= record["metadata"]["title"]
         resultDet["filepath"]= record["links"]["files"]
-        resultDet["license"] = record["license"]["id"]
-        
+        resultDet["license"] = record["metadata"]["license"]["id"]    
 
         print(f"#{localRecordCounter}: {record['doi']}")
 
@@ -46,7 +46,7 @@ while localRecordCounter < int(numOfRec):
     remotePaginator += 1
     print(f"go to next {size} records page {remotePaginator}")
 
-print(f"Number of Records writing to file: {localRecordCounter}")
+print(f"Number of Records writing to file: {localRecordCounter-1}")
 
 #Schreibe Metadaten (resultSet) in ein XLS-File zur Weiterbearbeitung
 df = pd.DataFrame(resultSet) 
