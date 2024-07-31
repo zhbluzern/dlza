@@ -11,11 +11,12 @@ input_file = 'e-manuscripta.xlsx'
 # metadata formats: 
 
 marcxml = 'True'
-mets = 'False'
-mods = 'False'
+mets_emanus = 'True'
+mods = 'True'
 datacite = 'False'
 dc = 'False'
-apidata = 'False'
+zenodomarc = 'False'
+zenodoapi = 'False'
 tei = 'False'
 
 # user information 
@@ -42,8 +43,9 @@ ona_conf = 'D:/Ingest/config/ona-config.yml'
 
 baseurl_doi = 'https://doi.org/' # DOI baseurl
 baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma' # Base URL for your Library catalogue permalink
-baseurl_marc = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id=' # Alma SRU Base URL, change your institution zone and code
+baseurl_marc = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id=' # MARC: Alma SRU Base URL, change your institution zone and code
+baseurl_mods = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=mods&query=rec.id=' #MODS: Alma SRU  Base URL, change your institution zone and code
 baseurl_zenodo_oai = 'https://zenodo.org/oai2d' # OAI-PMH url
 baseurl_zenodo_api = 'https://zenodo.org/api/records' # for api export
-baseurl_ecodices = 'https://www.e-codices.unifr.ch/xml/tei_published' # for tei format
-
+baseurl_tei = 'https://www.e-codices.unifr.ch/xml/tei_published' # TEI: Baseurl for ecodices tei format
+baseurl_mets = 'https://www.e-manuscripta.ch/oai?'

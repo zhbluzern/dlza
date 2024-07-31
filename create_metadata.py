@@ -11,18 +11,19 @@ import time
 # which metadata is available:
 marc = config.marcxml
 mods = config.mods
-marc_url = config.baseurl_marc
-mods_url = config.baseurl_mods
-
+mets_emanus = config.mets_emanus
 datacite = config.datacite
 dublincore = config.dc
 zenodomarc = config.zenodomarc
-apidata = config.apidata
-zenodo_url = config.baseurl_zenodo_oai
-zenodo_api = config.baseurl_zenodo_api
-
+zenodoapi = config.zenodoapi
 tei = config.tei
-ecodices_url = config.baseurl_ecodices
+
+marc_url = config.baseurl_marc
+mods_url = config.baseurl_mods
+mets_url = config.baseurl_mets
+zenodo_oai_url = config.baseurl_zenodo_oai
+zenodo_api_url = config.baseurl_zenodo_api
+tei_url = config.baseurl_tei
 
 # general config:
 
@@ -90,15 +91,27 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     file.write(response.content)
                     print(f"#{counter}-{mmsid} MODS XML downloaded.")        
 
+            # mets data:
+
+            if mets_emanus == 'True':
+
+                # get external id:
+                mets_id = identifiers['e-manuscripta']
+                sickle = Sickle(mets_url) 
+                mets_response = sickle.GetRecord(identifier=mets_id, metadataPrefix='mets')
+                mets_file = f'{collection}/{foldername}/metadata/{mets_id}_mets.xml'
+                with open(mets_file, 'w', encoding="utf-8") as file:
+                    file.write(mets_response.raw)
+                    print(f'#{counter}-{mets_id}: METS file downloaded. ')
 
             # datacite metadata        
-            if (datacite == "True"):  
+            if datacite == "True":  
 
                 retry_count = 0
                 max_retries = 5   
                 # get zenodo id and start OAI-PMH request 
                 zenodo_id = identifiers['zenodo'] 
-                sickle = Sickle(zenodo_url) 
+                sickle = Sickle(zenodo_oai_url) 
 
                 while retry_count < max_retries:
                     try:
@@ -122,13 +135,13 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     print("Max retries exceeded. Aborting...")
 
             # dublincore metadata        
-            if (dublincore == "True"):  
+            if dublincore == "True":  
 
                 retry_count = 0
                 max_retries = 5
                 # get zenodo id and start OAI-PMH request
                 zenodo_id = identifiers['zenodo']
-                sickle = Sickle(zenodo_url)  
+                sickle = Sickle(zenodo_oai_url)  
 
                 while retry_count < max_retries:
                     try:
@@ -153,13 +166,13 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     print("Max retries exceeded. Aborting...")
 
             # zenodomarc metadata        
-            if (zenodomarc == "True"):  
+            if zenodomarc == "True":  
 
                 retry_count = 0
                 max_retries = 5
                 # get zenodo id and start OAI-PMH request
                 zenodo_id = identifiers['zenodo']
-                sickle = Sickle(zenodo_url)            
+                sickle = Sickle(zenodo_oai_url)            
 
                 while retry_count < max_retries:
                     try:
@@ -185,14 +198,14 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                          
                     
             # zenodo api metadata        
-            if (apidata == "True"):  
+            if zenodoapi == "True":  
 
                 retry_count = 0
                 max_retries = 5
                 # get zenodo id and start http request
                 zenodo_id = identifiers['zenodo']
                 # get Zenodo-API response
-                query = f'{zenodo_api}/{zenodo_id}'
+                query = f'{zenodo_api_url}/{zenodo_id}'
                 response = requests.get(query)
                 if response.status_code != 200:
                     raise Exception(f"API request failed with status code {response.status_code}")
@@ -207,21 +220,21 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                 # wait 1 second every 10 records so as not to overshoot zenodo rate limiting. 
                 if counter%10 == 0: time.sleep(1)  
                     
-            # e-codices api metadata        
+            # e-codices TEI metadata        
             if (tei == "True"):  
 
                 # get ecodices_url and start http request
                 tei_id = identifiers['e-codices']
                 # get E-Codices response
-                query = f'{ecodices_url}/{tei_id}'               
+                query = f'{tei_url}/{tei_id}'               
 
                 response = requests.get(query)    
                 if response.status_code != 200:
-                    query = f'{ecodices_url}/{tei_id}_Kamber'
+                    query = f'{tei_url}/{tei_id}_Kamber'
                     response = requests.get(query)
                     
                     if response.status_code != 200:
-                        query = f'{ecodices_url}/{tei_id}_Bretscher'
+                        query = f'{tei_url}/{tei_id}_Bretscher'
                         response = requests.get(query)
                         
                         if response.status_code != 200:

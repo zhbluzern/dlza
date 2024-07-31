@@ -7,7 +7,7 @@ Das Migrieren sowie Entzippen erfolgt vorerst manuell.
 
 Gültig für Digitalisate aus der Sosa der ZHB, bzw. im eingeschränkten Umfang für alle Objekte, die auf lokalen Laufwerken liegen.
 
-*Achtung! Dieses Python script kann in der Ausführung sehr lange dauern, da die Sosa-Dateien riesig sind.
+*Achtung! Dieses Python script kann in der Ausführung sehr lange dauern, da die Sosa-ZIP-Kapseln riesig sind.
 Das Skript hat daher einen Debug-Modus, bitte Anzahl der Objekte einstellen, die abgeholt werden sollen: Variable debug*
 
 Voraussetzung an der ZHB: mit VPN verbunden / im UNET-Netzwerk, mit entsprechendem Laufwerk verbunden.
@@ -43,7 +43,7 @@ Global limit for guest users: 60 requests per minute, 2000 requests per hour
 OAI-PMH API harvesting: 120 requests per minute
 => pro loop 1 Sekunde sleep() einbauen.
 
-### Caveat: manuelles entzippen
+### TODO: manuelles entzippen
 
 Die AIPs liegen nun in einigen Fällen als ZIP-File im Ordner 'objects', im Unterordner der jeweiligen Signatur. Es macht keinen Sinn, ZIP-Files in ein ZIP-Archiv zu ingesten. Daher müssen die ZIP-Files vor dem Ingest entzippt und die Ordner danach bereinigt werden (ZIP-Files löschen). Dies sind zum aktuellen Zeitpunkt alles manuelle Prozesse. Das Entzippen kann auch erst auf der Workbench stattfinden, so dauert der Transfer nicht so lange.
 

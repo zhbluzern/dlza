@@ -2,7 +2,6 @@ import os
 import config
 import json
 from datetime import datetime
-#import zipfile
 import shutil
 from pathlib import Path
 
@@ -14,17 +13,17 @@ collection = config.collection_id
 file_name = f'{collection}/{collection}_inventory.json'
 
 counter = 0
-debug = 0 # Test mode, for prod: set to higher number than total files in collection
+debug = 9999 # Test mode, for prod: set to higher number than total files in collection
 
 with open(file_name, encoding="utf-8", errors='replace') as data_file:    
     data = json.load(data_file)
     for value in data:
 
-        counter += 1
+        counter += 1       
 
         #get sip folder. The full path is needed here for copying the files.
-        sip_folder = value["identifiers"][-1][4:]
-        data_path = f'{localdrive}/{collection}/{sip_folder}/data/'
+        sip_folder = value["references"][-1][4:]
+        data_path = f'{localdrive}/{collection}/{sip_folder}/data'
         # get path to G drive:
         g_path = value["additional"][0]
 
@@ -72,6 +71,8 @@ with open(file_name, encoding="utf-8", errors='replace') as data_file:
                     # copy file:
                     print("Copying file:", file)
                     print("Time started copying:",datetime.today().strftime('%Y-%m-%d %H:%M:%S'))
+                    #print(g_path+'/'+file)
+                    print(data_path+'/'+file)
                     shutil.copy(g_path+'/'+file, data_path+'/'+file) 
 
                     print("File copied successfully.")

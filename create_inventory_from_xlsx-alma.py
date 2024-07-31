@@ -54,8 +54,7 @@ for _, row in df.iterrows():
         "additional": []
     }
     
-    # identifiers
-        
+    # values from input file        
     doi = row['DOI']
     mms_id = str(row['MMS ID'])
     nz_id = str(row['Network ID'])
@@ -64,6 +63,9 @@ for _, row in df.iterrows():
     title = row['Title']
     sip_path = row['Dateipfad']
     external_id = str(row['externe ID'])
+    description = row["Description"]
+    md_license = row['License Metadata']
+    data_license = row['License Data']
     
     # folder name and signature:
     foldername = doi.replace('.','_').replace('/','_')
@@ -77,19 +79,16 @@ for _, row in df.iterrows():
     # references
     doiurl = config.baseurl_doi+doi
     almaurl = config.baseurl_alma+mms_id
-    md_license = row['License Metadata']
-    data_license = row['License Data']
-    
-    #complete info.json
-    
+
+    #complete info.json    
     infoSet["identifiers"] = ['doi:'+doi, 'mmsid:'+mms_id, org_id+':'+callnumber,'rec:'+recnumber, 'nzid:'+nz_id, urn+':'+external_id]
     infoSet["references"] = [doiurl, almaurl, 'sip:'+foldername]
     infoSet["signature"] = signature
     infoSet["title"] = title
+    infoSet["description"] = description
     infoSet["additional"] = [sip_path.replace('\\','/'), 'license data: '+data_license, 'license metadata: '+md_license]
 
-    #print(infoSet)
-    
+    #print(infoSet)    
     completeSet.append(infoSet)
     
     # Write the infoSet to a JSON file

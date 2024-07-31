@@ -6,6 +6,10 @@ Für gocfl müssen die semantischen Metadaten pro Objekt in einem eigenen Ordner
 
 Mit der MMS ID werden die Metadaten via SRU als marcxml und MODS aus Alma extrahiert und abgespeichert unter collection/sip/metadata/mmsid.xml.
 
+
+### METS aus e-manuscripta
+Mit der E-Manuscripta-ID (externe ID) werden die METS-Daten von e-manuscripta.ch abgeholt (OAI).
+
 ### Datacite - Dublin Core - ZenodoMARC (OAI, XML/json)
 
 Daten aus Zenodo-Repositories werden mit Datacite-, Dublin-Core- und MARC-Metadaten ins Archiv eingelagert.

@@ -41,18 +41,19 @@ Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert ins working
 Standardverfahren (für ZHB-Bestände): 
 Viele collections können mit einer Eingabedatei verarbeitet werden, die relativ leicht aus Alma exportiert werden kann. Die Sammlungen der ZHB sind alle in Alma in einem öffentlichen Set in der RZS gelistet. Eine separate Anleitung dazu findet sich auf Stackfield, Schulungsunterlagen zur Erstellung von Sets gibt es bei SLSP oder Ex Libris. 
 
-Die Export-Datei aus Alma wird leicht überarbeitet. Nicht benötigte Spalten werden gelöscht, einige Daten müssen gesplitted werden. Folgende Spalten werden benötigt:
+Die Export-Datei aus Alma wird leicht überarbeitet. Nicht benötigte Spalten werden gelöscht, einige Daten müssen gesplitted werden. Folgende Spalten werden benötigt (Reihenfolge der Spalten ist irrelevant):
 
-- Title: Titel des Werks
-- Record number: alte HAN-Nummer
-- Call number: aus Spalte Availability splitten, Spalte umbenennen
-- MMS ID: als Text erzwingen (Bsp. '9914249335105505')
-- Network ID manuell oder mit separatem Python script ergänzen. Das ist die Alma NZ ID (aus MARC-Feld 001).
-- DOI: manuell ergänzen
-- Dateipfad: manuell ergänzen
+- Type / Creator / Imprint: Spalte umbenennen zu "Description"
+- Title: unverändert übernehmen (Titel)
+- Record number: unverändert übernehmen (alte HAN-Nummer)
+- Availabilty: Spalte splitten, es wird nur die Signatur benötigt. Spalte umbenennen zu 'Call number'
+- MMS ID: als Text erzwingen (Bsp. '9914249335105505') (Python script [get_network_id_from_alma.py](get_network_id_from_alma.py) übernimmt dies auch.)
+- DOI: manuell ergänzen (alternativ: mit Excel Alma Lookup tool aus MARC-Feld 024$a)
+- Dateipfad: manuell ergänzen (Angaben von Sosa erfragen)
 - externe ID: wie z.B. E-Manuscripta ID, E-Codices-Identifier manuell ergänzen
 - License Data: manuell ergänzen. Für Sosa-Bestände normalerweise PDM 1.0 Deed (Public Domain).
 - License Metadata: manuell ergänzen. Für Sosa-Bestände normalerweise CC0 oder CC BY.
+- Network ID: Spalte manuell oder mit separatem Python script [get_network_id_from_alma.py](get_network_id_from_alma.py) ergänzen. Das ist die Alma NZ ID (aus MARC-Feld 35a, z.B. '(EXLNZ-41SLSP_NETWORK)991134908649705501').
 
 Da die Sosa-Sammlungen der ZHB zur Zeit überschaubar sind, hält sich der zeitliche Aufwand dafür in Grenzen.
 Als Alternative zum Direkt-Export aus Alma könnte auch die Excel-App "Excel Alma Lookup" verwendet werden.

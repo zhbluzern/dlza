@@ -29,18 +29,18 @@ Muster:
 
     gocfl create ./archive.zip ./data-directory metadata:./metadata-directory --config ./config/gocfl.toml -i 'signature'  --ext-NNNN-metafile-source ./ingest/info.json
 
-Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.bat) mit dem jeweiligen Create-Befehl. Aufruf:
+Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine ausführbare Datei (.ps1) mit dem jeweiligen Create-Befehl. Aufruf:
 
     python create_gocfl.py
 
 ## Display Befehl für gocfl generieren
 
 Das Script erstellt zusätzlich den Display-Befehl gemäss <https://github.com/je4/gocfl/blob/main/docs/display.md>.
-Der Display-Befehl wird in eine neue, ausführbare Datei (.bat) in das dazugehörige Display-File geschrieben.
+Der Display-Befehl wird in eine neue, ausführbare Datei (.ps1) in das dazugehörige Display-File geschrieben.
 
 ## ONA Befehl generieren
 
-Das Script erstellt zusätzlich eine .bat-Datei mit dem ona-Befehl, siehe https://gitlab.switch.ch/ub-unibas/dlza/ona sowie interne Doku auf Stackfield. 
+Das Script erstellt zusätzlich zwei .ps1-Dateien mit den ona-Befehlen, siehe https://gitlab.switch.ch/ub-unibas/dlza/ona sowie interne Doku auf Stackfield. 
 
 ## Weitere Schritte
 
