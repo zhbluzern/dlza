@@ -11,7 +11,7 @@ import time
 # which metadata is available:
 marc = config.marcxml
 mods = config.mods
-mets_emanus = config.mets_emanus
+mets = config.mets
 datacite = config.datacite
 dublincore = config.dc
 zenodomarc = config.zenodomarc
@@ -93,7 +93,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
 
             # mets data:
 
-            if mets_emanus == 'True':
+            if mets == 'True':
 
                 # get external id:
                 mets_id = identifiers['e-manuscripta']

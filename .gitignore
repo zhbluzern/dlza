@@ -21,3 +21,4 @@ config-emanuscripta.py
 /config-backup
 config.py
 *.ps1
+config.py
