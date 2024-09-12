@@ -35,7 +35,7 @@ with open(file_name, encoding="utf-8", errors='replace') as data_file:
         print("           SIP folder: ",dir_sip)
         
         # create string  
-        create_string = f'{gocfl} create {storage_root} {dir_sip} metadata:{dir_metadata} -i {signature} --ext-NNNN-metafile-source file://{f_infojson} --config {gocfl_conf}'
+        create_string = f'{gocfl} create {storage_root} {dir_sip} metadata:{dir_metadata} -i {signature} --ext-NNNN-metafile-source file://{f_infojson} --config {gocfl_conf} --log-level INFO'
         create_string+='\nRead-Host -Prompt "Press Enter to exit"'
         #print(create_string)
         
@@ -45,7 +45,7 @@ with open(file_name, encoding="utf-8", errors='replace') as data_file:
         # ona ingest / stored
         ona_ingest = f'ona ingest -w -p {storage_root} -c {ona_conf}'
         ona_ingest+='\nRead-Host -Prompt "Press Enter to exit"'
-        ona_stored = f'ona stored -n {storage_root} -c {ona_conf}'
+        ona_stored = f'ona stored -n {org}_{collection}_{sip}.zip -c {ona_conf}'
         ona_stored+='\nRead-Host -Prompt "Press Enter to exit"'
         
         # write strings to file
