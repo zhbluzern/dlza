@@ -1,23 +1,23 @@
 # collection: 
 
-collection_id = 'emanus'
-collection = 'ZHB Sosa E-Manuscripta'
+collection_id = 'ecod'
+collection = 'ZHB Sosa E-Codices'
 zenodo_set = 'user-lara' # Zenodo OAI set name, eg. user-lory
-ingest_workflow = 'e-manuscripta' 
+ingest_workflow = 'e-codices' 
 keywords = []  # array
-sets = ['e-manuscripta', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
-input_file = 'e-manuscripta.xlsx'
+sets = ['e-codices', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
+input_file = 'e-codices.xlsx'
 
 # metadata formats: 
 
 marcxml = 'True'
-mets_emanus = 'True'
+mets = 'False'
 mods = 'True'
 datacite = 'False'
 dc = 'False'
 zenodomarc = 'False'
 zenodoapi = 'False'
-tei = 'False'
+tei = 'True'
 
 # user information 
 
@@ -34,10 +34,10 @@ organisation_address = 'mailto:info@zhbluzern.ch'
 
 # DLZA Workbench information
 
-dlza_root = 'D:/Ingest'
-gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
+dlza_root = 'E:/Ingest'
+gocfl_conf = 'D:/Config/zhb-config.toml'
 gocfl = 'gocfl'
-ona_conf = 'D:/Ingest/config/ona-config.yml'
+ona_conf = 'D:/Config/ona-config.yml'
 
 # general configuration
 

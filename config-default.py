@@ -33,10 +33,10 @@ organisation_address = 'mailto:info@inst.org'
 
 # DLZA Workbench information
 
-dlza_root = 'D:/Ingest'
-gocfl_conf = 'D:/Ingest/config/zhb-config.toml'
+dlza_root = 'E:/Ingest'
+gocfl_conf = 'D:/Config/zhb-config.toml'
 gocfl = 'gocfl'
-ona_conf = 'D:/Ingest/config/ona-config.yml'
+ona_conf = 'D:/Config/ona-config.yml'
 
 # general configuration
 
