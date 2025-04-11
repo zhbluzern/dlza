@@ -50,7 +50,7 @@ Dieser Bereich muss für jede collection angepasst werden. Bsp. E-Manuscripta:
 
     collection_id = 'emanus'
     collection = 'ZHB Sosa E-Manuscripta'
-    zenodo_set = 'user-zenodo' # Zenodo OAI set name, eg. user-lory
+    zenodo_set = 'user-zenodocommunity' # Zenodo OAI set name, eg. user-lory
     ingest_workflow = 'e-manuscripta'
     keywords = []  # array
     sets = ['e-manuscripta', 'zhb']
@@ -98,9 +98,9 @@ Name der Ingest-Person bzw. Ingest-Organisation sollte hier angepasst werden. Wi
 
 ### DLZA Workbench information
 
-Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordner sowie der Pfad für die gocfl-config konfiguriert werden, damit der Create-Befehl korrekt erstellt wird.
+Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordner sowie der Pfad für die gocfl-config konfiguriert werden, damit der Create-Befehl korrekt erstellt wird. Die angegebenen Pfade sind Beispiele, die ZHB-Workbench-Config findet sich auf Stackfield.
 
-    dlza_root = 'D:/Ingest'
+    dlza_root = 'C:/Ingest'
     gocfl_conf = 'config.toml'
     gocfl = 'gocfl.exe'
     ona_conf = 'ona-config.yml'
