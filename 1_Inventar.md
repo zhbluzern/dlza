@@ -73,6 +73,7 @@ python create_inventory_from_xlsx-alma.py
 Standardverfahren für alle Zenodo-Repository-Daten (Lory, Lara):
 Diese collections der ZHB können ebenfalls mit einer Eingabedatei verarbeitet werden.  Sie kann mit dem folgenden Script aus Zenodo exportiert werden: [create_excel_from_zenodo.py](create_excel_from_zenodo.py). Danach liegt eine Excel-Datei im working directory.
 Der Name der Datei sowie die Zenodo-Community werden in der config.py angegeben.
+Soll eine Community nur ab einem bestimmten Publikationsdatum verarbeitet werden (z.B. seit dem letzten Ingest), muss die Variable 'harvest_from_date' angepasst werden (default: 1970-01-01).
 
 *Wichtig: community_id in config.py muss wie die Zenodo-ID lauten, damit das Skript funktioniert.*
 

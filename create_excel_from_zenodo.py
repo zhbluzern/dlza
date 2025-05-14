@@ -4,12 +4,17 @@ import datetime
 import config
 
 community = config.collection_id
+# enter the date from which you want to harvest records
+# e.g. "2024-07-19" for all records from 19th July 2024 onwards
+# default is: "1970-01-01"
+harvest_from_date = "2024-07-19"
+
 output = config.input_file
 zenodoRestUrl = config.baseurl_zenodo_api
 headers = {}
 headers["Content-Type"] = "application/json"
 size = '100'
-params = { "communities":  community, "size": size}
+params = { "communities":  community, "size": size, "q": f"created:[{harvest_from_date} TO *]" }
 
 
 def getRecords():
