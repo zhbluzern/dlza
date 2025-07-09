@@ -34,6 +34,14 @@ def calculate_md5(file_path):
             md5_hash.update(byte_block)
     return md5_hash.hexdigest()
 
+# check for already processed files
+processed_file = f'{community}_processed.txt'
+if os.path.exists(processed_file):
+    with open(processed_file, 'r') as f:
+        processed_ids = set(line.strip() for line in f)
+else:
+    processed_ids = set()
+
 # read inventory file
 with open(file_name, encoding="utf-8") as data_file:    
     data = json.load(data_file)
@@ -57,11 +65,25 @@ with open(file_name, encoding="utf-8") as data_file:
                 identifiers[key] = value
 
             # get the file download link from zenodo: 
-            zenodo_id = identifiers['zenodo']                   
+            zenodo_id = identifiers['zenodo'] 
+            # Fortschritt prüfen
+            if zenodo_id in processed_ids:
+                print(f"Skipping already processed: {zenodo_id}")
+                continue
+
             zenodo_link = f'{zenodo_api}/{zenodo_id}/files'    
             print(f"\n#{counter}: Get files from:",zenodo_link)
             response = requests.get(zenodo_link, params={'access_token': ACCESS_TOKEN})
-            file_object = response.json()
+            #file_object = response.json()
+            if response.status_code == 200 and response.headers.get('Content-Type', '').startswith('application/json'):
+                file_object = response.json()
+            else:
+                print(f"---   Error: Status {response.status_code}, Content-Type: {response.headers.get('Content-Type')}")
+                print(f"---   Response text: {response.text[:200]}")  # Nur die ersten 200 Zeichen anzeigen
+                with open(download_manually, 'a') as file:
+                    file.write(zenodo_link)
+                    file.write("\n")
+                continue
 
             try: 
                 for entry in file_object['entries']:
@@ -75,13 +97,26 @@ with open(file_name, encoding="utf-8") as data_file:
                     local_file = f'{data_path}/{file_name}'
                     
                     # download content
-                    response = requests.get(download_url, params={'access_token': ACCESS_TOKEN})
-                    with open(local_file, mode="wb") as file:
-                        file.write(response.content)
-                        print(response)
-                        print("Downloaded:",local_file)
-                        # wait 1 second for every record so as not to overshoot zenodo rate limiting. 
-                        time.sleep(1) 
+                    #response = requests.get(download_url, params={'access_token': ACCESS_TOKEN})
+                    
+                    with requests.get(download_url, params={'access_token': ACCESS_TOKEN}, stream=True) as response:
+                        response.raise_for_status()  # Fehlerbehandlung
+                        with open(local_file, 'wb') as f:  
+                            try:                         
+                                for chunk in response.iter_content(chunk_size=8192):  # 8KB pro Chunk
+                                    if chunk:  # Filter leere Chunks
+                                        f.write(chunk)
+                                print(response.status_code,"- Downloaded:",local_file)
+                            except Exception as e:
+                                print(f"---   Error downloading file {local_file}: {e}")
+                                # append download url to download_manually.txt
+                                with open(download_manually, 'a') as file:
+                                    file.write(download_url)
+                                    file.write("\n")
+                                    print(f"URL {download_url} appended to {download_manually}, download problems.\n")
+
+                    # wait 1 second for every record so as not to overshoot zenodo rate limiting.
+                    time.sleep(1) 
 
                     # checksum comparison from local_file to md5_checksum
                     try:
@@ -89,6 +124,9 @@ with open(file_name, encoding="utf-8") as data_file:
 
                         if md5_checksum == md5_checksum_zenodo:
                             print("Checksums match")
+                            # Fortschritt speichern
+                            with open(processed_file, 'a') as pf:
+                                pf.write(f"{zenodo_id}\n")
                         else:
                             print("---------------------------------------------------------------------------------- Checksums don't match!")        
                             # append download url to download_manually.txt

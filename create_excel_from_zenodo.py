@@ -3,11 +3,14 @@ import pandas as pd
 import datetime 
 import config
 
+# This script harvests records from a Zenodo community and writes the metadata to an Excel file.
+# Make sure to have the required libraries installed:
+# pip install requests pandas openpyxl
+
+# Set the community ID and harvest date
 community = config.collection_id
-# enter the date from which you want to harvest records
-# e.g. "2024-07-19" for all records from 19th July 2024 onwards
-# default is: "1970-01-01"
-harvest_from_date = "2024-07-19"
+# enter the date from which you want to harvest records, e.g. "2024-07-19" for all records from 19th July 2024 onwards. Default (all records) is: "1970-01-01"
+harvest_from_date = "1970-01-01"
 
 output = config.input_file
 zenodoRestUrl = config.baseurl_zenodo_api
@@ -42,7 +45,23 @@ while localRecordCounter < int(numOfRec):
         resultDet["reference"] = record["doi_url"]
         resultDet["title"]= record["metadata"]["title"]
         resultDet["filepath"]= record["links"]["files"]
-        resultDet["license"] = record["metadata"]["license"]["id"]    
+        #resultDet["license"] = record["metadata"]["license"]["id"]        
+        resultDet["license"] = record["metadata"].get("license", {}).get("id", "unlicensed")
+
+        
+        # Check if already in DLZA: search for identifier starting with 'zhb' in the related_identifiers
+               
+        dlza_identifier = None
+        
+        related = record["metadata"].get("related_identifiers", [])
+        if isinstance(related, list):
+            for entry in related:
+                if (entry.get('relation', '').lower() == 'isidenticalto' and entry.get('identifier', '').lower().startswith('zhb')):
+                    dlza_identifier = entry['identifier']
+                    break
+
+        print(dlza_identifier)
+        resultDet["dlza_identifier"] = dlza_identifier if dlza_identifier else "none"
 
         print(f"#{localRecordCounter}: {record['doi']}")
 
@@ -53,7 +72,7 @@ while localRecordCounter < int(numOfRec):
 
 print(f"Number of Records writing to file: {localRecordCounter-1}")
 
-#Schreibe Metadaten (resultSet) in ein XLS-File zur Weiterbearbeitung
+#Schreibe Metadaten (resultSet) in ein XLSX-File zur Weiterbearbeitung
 df = pd.DataFrame(resultSet) 
 #print(df.head())
 df.to_excel(output) 

@@ -20,3 +20,5 @@
 config.py
 
 
+*.docx
+/lory_unilu

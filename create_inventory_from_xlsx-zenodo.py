@@ -46,7 +46,7 @@ for _, row in df.iterrows():
         "keywords": config.keywords,
         "user": config.user_name,
         "address": config.user_address,
-        "created": row["created"],
+        "created": now, #früher: row["created"]
         "last_changed": now,
         "deprecates": "",
         "references": "",
