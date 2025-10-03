@@ -54,7 +54,7 @@ class goobiHandler:
         result = requests.put(url=f"{self.apiUrl}process/query",
                               headers={"accept":"*/*", "token": self.apiToken, "Content-Type" : "application/json"},
                               json=filterObject)
-        print(result.text)
+        #print(result.text)
         return(result.json())
     
     def getProcess(self, processId):
