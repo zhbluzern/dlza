@@ -11,8 +11,10 @@ gocfl_conf = config.gocfl_conf
 ona_conf = config.ona_conf
 gocfl = config.gocfl
 
+baseDir = "boilerplate/"
+
 # input file
-file_name = f'{collection}/{collection}_inventory.json'
+file_name = f'{baseDir}{collection}/{collection}_inventory.json'
 
 # read line from file
 with open(file_name, encoding="utf-8", errors='replace') as data_file:    
@@ -49,10 +51,10 @@ with open(file_name, encoding="utf-8", errors='replace') as data_file:
         ona_stored+='\nRead-Host -Prompt "Press Enter to exit"'
         
         # write strings to file
-        create_file = f'{collection}/{sip}/ingest/{sip}_create.ps1'
-        display_file = f'{collection}/{sip}/ingest/{sip}_display.ps1'
-        ona_ingest_file = f'{collection}/{sip}/ingest/{sip}_ona_ingest.ps1'
-        ona_stored_file = f'{collection}/{sip}/ingest/{sip}_ona_stored.ps1'
+        create_file = f'{baseDir}{collection}/{sip}/ingest/{sip}_create.ps1'
+        display_file = f'{baseDir}{collection}/{sip}/ingest/{sip}_display.ps1'
+        ona_ingest_file = f'{baseDir}{collection}/{sip}/ingest/{sip}_ona_ingest.ps1'
+        ona_stored_file = f'{baseDir}{collection}/{sip}/ingest/{sip}_ona_stored.ps1'
 
         with open(create_file, 'w', encoding="utf-8", errors='replace') as file:
             file.write(create_string)

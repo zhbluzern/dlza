@@ -1,23 +1,31 @@
+from datetime import datetime
 # collection: 
 
-collection_id = 'ecod'
-collection = 'ZHB Sosa E-Codices'
+collection_id = 'zentralgut'
+collection = 'ZHB ZentralGut'
 zenodo_set = 'user-lara' # Zenodo OAI set name, eg. user-lory
-ingest_workflow = 'e-codices' 
+zentralgut_oai_sets = ["DC:zentralundhochschulbibliothekluzern.portraitgalerie"]
+#zentralgut_filter = ["meta:singleDigCollection:Zentral- und Hochschulbibliothek Luzern#Portraitgalerie"]
+zentralgut_filter = ["ID:10946 10947 10945 10643 2623"]
+goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }
+input_file = ''
+downloadFiles = False
+ingest_workflow = 'zentralgut' 
 keywords = []  # array
-sets = ['e-codices', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
-input_file = 'e-codices.xlsx'
+#sets = ['e-codices', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
+sets = ["zentralgut"]
+
 
 # metadata formats: 
-
 marcxml = 'True'
-mets = 'False'
-mods = 'True'
-datacite = 'False'
+mets = 'True'
+mods = 'False'
+datacite = 'True'
 dc = 'False'
 zenodomarc = 'False'
 zenodoapi = 'False'
-tei = 'True'
+tei = 'False'
+goobi = 'True'
 
 # user information 
 
@@ -49,3 +57,35 @@ baseurl_zenodo_oai = 'https://zenodo.org/oai2d' # OAI-PMH url
 baseurl_zenodo_api = 'https://zenodo.org/api/records' # for api export
 baseurl_tei = 'https://www.e-codices.unifr.ch/xml/tei_published' # TEI: Baseurl for ecodices tei format
 baseurl_mets = 'https://www.e-manuscripta.ch/oai?'
+baseurl_zentralgut_oai = "https://zentralgut.ch/oai"
+
+# default InfoSet
+def loadInfoSet(nowTimeStamp=datetime.now().isoformat()):
+    infoSet = { 
+    # infoset created after https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json 
+
+    "signature": "",
+    "organisation_id": organisation_id,
+    "organisation": organisation,
+    "organisation_address": organisation_address,
+    "collection_id": collection_id,
+    "collection": collection,
+    "sets": sets,
+    "identifiers": [],
+    "title": "",
+    "alternative_titles": [],
+    "description": "",
+    "keywords": keywords,
+    "user": user_name,
+    "address": user_address,
+    "created": nowTimeStamp,
+    "last_changed": nowTimeStamp,
+    "deprecates": "",
+    "references": "",
+    "ingest_workflow": ingest_workflow,
+    "additional": []
+    }
+    return infoSet
+
+if __name__ == "__main__":
+    print(loadInfoSet())
