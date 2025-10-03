@@ -1,4 +1,3 @@
-import json
 import pandas as pd
 import config
 import re
@@ -17,7 +16,7 @@ collection = config.collection_id
 urn = config.ingest_workflow
 org_id = config.organisation_id
 coll_id = config.collection_id
-baseDir = config.boilerplate #could be also an external hdd like "G:/etc.etc."
+baseDir = config.boilerplate #could be also an external hdd like "G:/etc/etc/"
 fulljsonfile = f'{baseDir}{collection}/{collection}_inventory.json'
 fullexcelfile = f'{baseDir}{collection}/{collection}_inventory.xlsx'
 completeSet = []
@@ -54,7 +53,6 @@ for goobiSyntaxFilter in config.zentralgut_filter:
 logger.log(f"⏳ Starting with creation of inventory for {collection} with {str(len(records['ids']))} records.")
 
 for i, recordId in enumerate(records["ids"]):
-    infoSet = config.loadInfoSet()
     logger.log(f"📝 Processing record no. {str(i+1).zfill(4)} with ID: {recordId}")
     
     #Fetching Metadata for current Document
@@ -76,6 +74,7 @@ for i, recordId in enumerate(records["ids"]):
     dlza = DLZA.dlzaHandler(logger,collection,foldername,baseDir=config.boilerplate)
 
     #complete info.json    
+    infoSet = dlza.loadInfoSet()
     infoSet["title"] = title[0]["value"]
     infoSet["identifiers"] = [ark[0]["value"], f'zentralgut_CatalogIDDigital:{zentralGutId[0]["value"]}', f'goobi_processId:{recordId}']
     infoSet["signature"] = signature
@@ -115,8 +114,8 @@ for i, recordId in enumerate(records["ids"]):
     goobiSSH.downloadFile(f"{remote_dirRuleSet}{rulesetFile}",  f"{dlza.dlzaDirs['metadata']}{rulesetFile}")
 
     # Zu CompleteSet hinzufügen
-    completeSet.append(infoSet)
-
+    completeSet.append(infoSet.copy())
+    
     # Write the infoSet to a JSON file
     dlza.writeInfoSetJson(infoSet)
 
@@ -136,8 +135,9 @@ for i, recordId in enumerate(records["ids"]):
                 s3Conn.s3.download_file(s3Conn.bucket, obj['Key'], localPath)
                 logger.log(f"✅ Downloaded { obj['Key']} → {localPath}")
         
-    # ZIP Record
-    dlza.zip_directory(dlza.dlzaDirs["recordDir"], f"{baseDir}{collection}/{foldername}.zip", rmSourceDir=config.remove_collection_folder_after_zipping)
+    # create zip-file of SIP-direcotry
+    if config.zipFiles == True:
+        dlza.zip_directory(dlza.dlzaDirs["recordDir"], f"{baseDir}{collection}/{foldername}.zip", rmSourceDir=config.remove_collection_folder_after_zipping)
     
     #Log Finishing of current record
     logger.log(f"🎯 Finished record no. {str(i+1).zfill(4)} with ID: {recordId} at {datetime.now().isoformat()}")

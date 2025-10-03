@@ -1,21 +1,19 @@
-from datetime import datetime
 # collection: 
 
 collection_id = 'zentralgut'
 collection = 'ZHB ZentralGut'
 zenodo_set = 'user-lara' # Zenodo OAI set name, eg. user-lory
-zentralgut_oai_sets = ["DC:zentralundhochschulbibliothekluzern.portraitgalerie"]
-#zentralgut_filter = ["meta:singleDigCollection:Zentral- und Hochschulbibliothek Luzern#Portraitgalerie"]
-zentralgut_filter = ["ID:10946 10947 10945 10643 2623"]
-goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }
 input_file = ''
-downloadFiles = True
-remove_collection_folder_after_zipping = True
 ingest_workflow = 'zentralgut' 
-boilerplate = "boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
 keywords = []  # array
 #sets = ['e-codices', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
 sets = ["zentralgut"]
+
+# general configurations suggested by ERCH, introduced in create_inventory_zentralgut.py first
+boilerplate = "boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
+downloadFiles = False #If True data/* files are downloaded immediately on inventory creation from s3-storage (attention: could be very time and diskspace consuming!)
+zipFiles = False
+remove_collection_folder_after_zipping = True #If True sip-directories are removed after creating zip-files of the directories.
 
 
 # metadata formats: 
@@ -60,10 +58,7 @@ baseurl_zenodo_api = 'https://zenodo.org/api/records' # for api export
 baseurl_tei = 'https://www.e-codices.unifr.ch/xml/tei_published' # TEI: Baseurl for ecodices tei format
 baseurl_mets = 'https://www.e-manuscripta.ch/oai?'
 baseurl_zentralgut_oai = "https://zentralgut.ch/oai"
-
-# default InfoSet
-def loadInfoSet(nowTimeStamp=datetime.now().isoformat()):
-    infoSet = { 
+infoSet = { 
     # infoset created after https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json 
 
     "signature": "",
@@ -80,14 +75,15 @@ def loadInfoSet(nowTimeStamp=datetime.now().isoformat()):
     "keywords": keywords,
     "user": user_name,
     "address": user_address,
-    "created": nowTimeStamp,
-    "last_changed": nowTimeStamp,
+    "created": "",
+    "last_changed": "",
     "deprecates": "",
     "references": "",
     "ingest_workflow": ingest_workflow,
     "additional": []
-    }
-    return infoSet
+}
 
-if __name__ == "__main__":
-    print(loadInfoSet())
+# zentralgut specific configuration:
+#zentralgut_oai_sets = ["DC:zentralundhochschulbibliothekluzern.portraitgalerie"]
+zentralgut_filter = ["ID:10946 10947 10945 10643 2623"] #zentralgut_filter = ["meta:singleDigCollection:Zentral- und Hochschulbibliothek Luzern#Portraitgalerie"]
+goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }

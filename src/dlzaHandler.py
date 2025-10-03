@@ -5,6 +5,8 @@ import os
 import zipfile
 import shutil
 import stat
+import config
+from datetime import datetime
 
 class dlzaHandler:
     def __init__(self,logger,collection,foldername,baseDir=""):
@@ -25,6 +27,12 @@ class dlzaHandler:
             self.logger.log(f"📂 Directory {dataDir} created")
         return dictOfDir
 
+    def loadInfoSet(self):
+        infoSet = config.infoSet
+        infoSet["created"] = datetime.now().isoformat()
+        infoSet["last_changed"] = datetime.now().isoformat()
+        return infoSet
+
     def writeInfoSetJson(self, infoSet):
         # Write the infoSet to a JSON file
         info_json = json.dumps(infoSet, indent=4, ensure_ascii=False)
@@ -41,7 +49,7 @@ class dlzaHandler:
         self.logger.log(f"💾 write completeset to {fulljsonfile}")
         with open(fulljsonfile, "w", encoding="utf-8") as outfile:
             outfile.write(fulldump)
-            self.logger.log(f"===============================")
+            self.logger.log(f"==============================================================")
             self.logger.log(f"💾 All Inventory JSON written to {fulljsonfile}")
         return True
 
