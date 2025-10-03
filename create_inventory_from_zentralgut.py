@@ -135,6 +135,9 @@ for i, recordId in enumerate(records["ids"]):
                 s3Conn.s3.download_file(s3Conn.bucket, obj['Key'], localPath)
                 logger.log(f"✅ Downloaded { obj['Key']} → {localPath}")
         
+    # ZIP Record
+    dlza.zip_directory(dlzaFolders["recordDir"], f"{baseDir}{collection}/{foldername}.zip",logger)
+
 
 # Writing completeSet as json file
 dlza.writeCompleteSet(completeSet, logger, fulljsonfile)
