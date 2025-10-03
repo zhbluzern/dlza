@@ -43,4 +43,4 @@ Es werden aus Goobi folgende Metadaten je Record für die DLZA gespeichert
 * meta(_anchor).xml - Goobi-Workflow Metadaten-File
 * mets.xml - Transformation in METS/MODS
 * marc.xml - bei Vorliegen eines ALMA-Records als Metadatenbasis wird der ALMA-Datensatz parallel geharvestet und gespeichert.
-* Zusätzlich wird noch die `ruleset.xml` gespeichert, die es ermöglichen würde, auf Basis des vorliegenden Archivs einen Ingest in Goobi-Workflow einzuspielen um eine unmittelbar valide Transformation in ein neues Viewer-System zu ermöglichen.
+* Zusätzlich wird noch die `ruleset.xml` gespeichert, die es ermöglichen würde, auf Basis des vorliegenden Archivs einen Ingest in eine neue Goobi-Workflow-Instanz einzuspielen, dadurch den Medateneditor valide zu halten und um eine unmittelbar valide Transformation in ein neues Viewer-System zu ermöglichen.

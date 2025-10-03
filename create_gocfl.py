@@ -6,12 +6,13 @@ import json
 root = config.dlza_root
 collection = config.collection_id
 org = config.organisation_id
+baseDir = config.boilerplate
 
 gocfl_conf = config.gocfl_conf
 ona_conf = config.ona_conf
 gocfl = config.gocfl
 
-baseDir = "boilerplate/"
+
 
 # input file
 file_name = f'{baseDir}{collection}/{collection}_inventory.json'
