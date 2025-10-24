@@ -1,22 +1,22 @@
 # collection: 
 
-collection_id = 'ecod'
-collection = 'ZHB Sosa E-Codices'
-zenodo_set = 'user-lara' # Zenodo OAI set name, eg. user-lory
-ingest_workflow = 'e-codices' 
+collection_id = 'lory_unilu'
+collection = 'Lory Community UniLU - Universität Luzern'
+ingest_workflow = 'zenodo' 
 keywords = []  # array
-sets = ['e-codices', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
-input_file = 'e-codices.xlsx'
+sets = ['zhb', 'lory', 'lory_unilu', 'zenodo', 'all', 'digitalborn', 'openscience'] # array
+input_file = 'lory_unilu.xlsx'
+
 
 # metadata formats: 
 
-marcxml = 'True'
+marcxml = 'False'
 mets = 'False'
-mods = 'True'
-datacite = 'False'
-dc = 'False'
-zenodomarc = 'False'
-zenodoapi = 'False'
+mods = 'False'
+datacite = 'True'
+dc = 'True'
+zenodomarc = 'True'
+zenodoapi = 'True'
 tei = 'True'
 
 # user information 

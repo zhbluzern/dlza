@@ -43,7 +43,7 @@ with open(file_name, encoding="utf-8", errors='replace') as data_file:
         display_string = f'{gocfl} display {storage_root}'
 
         # ona ingest / stored
-        ona_ingest = f'ona ingest -w -p {storage_root} -c {ona_conf}'
+        ona_ingest = f'ona ingest -p {storage_root} -c {ona_conf}'
         ona_ingest+='\nRead-Host -Prompt "Press Enter to exit"'
         ona_stored = f'ona stored -n {org}_{collection}_{sip}.zip -c {ona_conf}'
         ona_stored+='\nRead-Host -Prompt "Press Enter to exit"'
