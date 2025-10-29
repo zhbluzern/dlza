@@ -9,12 +9,13 @@ import config
 from datetime import datetime
 
 class dlzaHandler:
-    def __init__(self,logger,collection,foldername,baseDir=""):
+    def __init__(self,logger,collection,foldername,createFolders=True,baseDir=""):
         self.logger = logger
         self.collection = collection
         self.foldername = foldername
         self.baseDir = baseDir
-        self.dlzaDirs = self.createFolders()
+        if createFolders==True:
+            self.dlzaDirs = self.createFolders()
 
     # 📂 create subfolders, if they do not exist already:
     def createFolders(self):
@@ -25,6 +26,7 @@ class dlzaHandler:
             Path(dataDir).mkdir(parents=True, exist_ok=True)
             dictOfDir.update({subDir:dataDir})
             self.logger.log(f"📂 Directory {dataDir} created")
+        self.dlzaDirs = dictOfDir
         return dictOfDir
 
     def loadInfoSet(self):

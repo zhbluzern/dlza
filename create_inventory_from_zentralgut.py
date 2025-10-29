@@ -1,6 +1,8 @@
 import pandas as pd
 import config
 import re
+import os
+import json
 from datetime import datetime
 from pathlib import Path
 from lxml import etree
@@ -8,6 +10,7 @@ import src.goobiHandler as goobiHandler
 import src.dlzaHandler as DLZA 
 import src.goobiSSH as goobiSSHConn 
 import src.almaHandler as almaAPI
+import src.gocflHandler as gofclHandler
 import src.logger as log
 
 # needed variables: files, paths, input
@@ -36,6 +39,15 @@ alma = almaAPI.ExL_Bib()
 
 # create folder for current collection, if it does not exist already:
 Path(f'{baseDir}{collection}').mkdir(parents=True, exist_ok=True)
+
+# load fullfile if exists (usefful for reruns of inventory creation due to ssh-errors)
+if os.path.exists(fulljsonfile):
+    with open(fulljsonfile, "r") as f:
+        loadedCompleteSet = json.load(f)
+else:
+    loadedCompleteSet = []
+processed_signatures = {entry["signature"] for entry in loadedCompleteSet}
+
 
 # Run through given ZentralGut-OAI-Set(s) and harvest all records
 # : Create the zentralgut-collection
@@ -72,9 +84,21 @@ for i, recordId in enumerate(records["ids"]):
     # folder name and signature:
     foldername = ark[0]["value"].replace(':','').replace('/','_')
     signature = f'{org_id}:{coll_id}_{foldername}'
-    
+
+    #Init DLZA Class
+    dlza = DLZA.dlzaHandler(logger,collection,foldername,baseDir=config.boilerplate, createFolders=False)
+
+    # check if signature is already known in loadedCompleteset (mainly useful for rerun after ssh-errors)
+    if signature in processed_signatures:
+        logger.log(f"✔️ Skipping already processed: {signature}")
+        infoSet = next((entry for entry in loadedCompleteSet if entry["signature"] == signature), None)
+        if infoSet:
+            completeSet.append(infoSet.copy())  # ✅ Append before skipping
+        continue
+
     # Create Subfolders for current Document
-    dlza = DLZA.dlzaHandler(logger,collection,foldername,baseDir=config.boilerplate)
+    #dlza = DLZA.dlzaHandler(logger,collection,foldername,baseDir=config.boilerplate)
+    dlza.createFolders()
 
     #complete info.json    
     infoSet = dlza.loadInfoSet()
@@ -119,7 +143,8 @@ for i, recordId in enumerate(records["ids"]):
 
     # Zu CompleteSet hinzufügen
     completeSet.append(infoSet.copy())
-    
+    dlza.writeCompleteSet(completeSet, fulljsonfile)
+
     # Write the infoSet to a JSON file
     dlza.writeInfoSetJson(infoSet)
 
@@ -139,9 +164,13 @@ for i, recordId in enumerate(records["ids"]):
                 s3Conn.s3.download_file(s3Conn.bucket, obj['Key'], localPath)
                 logger.log(f"✅ Downloaded { obj['Key']} → {localPath}")
         
+    # write gofcl scripts
+    gofclHandler.writeGOFCL(infoSet, config)
+    logger.log(f"📝 Write GOFCL-Scripts for {signature}")
+
     # create zip-file of SIP-direcotry
     if config.zipFiles == True:
-        dlza.zip_directory(dlza.dlzaDirs["recordDir"], f"{baseDir}{collection}/{foldername}.zip", rmSourceDir=config.remove_collection_folder_after_zipping)
+        dlza.zip_directory(dlza.dlzaDirs["recordDir"], f"{baseDir}{collection}/{collection}_{foldername}.zip", rmSourceDir=config.remove_collection_folder_after_zipping)
     
     #Log Finishing of current record
     logger.log(f"🎯 Finished record no. {str(i+1).zfill(4)} with ID: {recordId} at {datetime.now().isoformat()}")

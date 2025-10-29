@@ -11,6 +11,7 @@ sets = ["zhb", "sosa", "all", "zentralgut", "digitalisat"]
 
 # general configurations suggested by ERCH, introduced in create_inventory_zentralgut.py first
 boilerplate = "C:/ZentralGut_Temp/DLZA_Boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
+createFolders = True
 downloadFiles = True #If True data/* files are downloaded immediately on inventory creation from s3-storage (attention: could be very time and diskspace consuming!)
 zipFiles = True
 remove_collection_folder_after_zipping = True #If True sip-directories are removed after creating zip-files of the directories.
@@ -87,4 +88,5 @@ infoSet = {
 #zentralgut_oai_sets = ["DC:zentralundhochschulbibliothekluzern.portraitgalerie"]
 #zentralgut_filter = ["ID:10946 10947 10945 10643 2623"] 
 zentralgut_filter = ["meta:singleDigCollection:Zentral- und Hochschulbibliothek Luzern#Portraitgalerie"]
+# zentralgut_filter = ["ID:10938"]
 goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }
