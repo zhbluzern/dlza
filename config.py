@@ -1,18 +1,18 @@
 # collection: 
 
-collection_id = 'zentralgut'
-collection = 'ZHB ZentralGut'
+collection_id = 'zentralgut_portraitgalerie'
+collection="Portraitgalerie der merkwürdigen Luzernerinnen und Luzerner"
 zenodo_set = 'user-lara' # Zenodo OAI set name, eg. user-lory
 input_file = ''
 ingest_workflow = 'zentralgut' 
 keywords = []  # array
 #sets = ['e-codices', 'zhb', 'sosa', 'all', 'digitalisat', 'alma'] # array
-sets = ["zentralgut"]
+sets = ["zhb", "sosa", "all", "zentralgut", "digitalisat"]
 
 # general configurations suggested by ERCH, introduced in create_inventory_zentralgut.py first
-boilerplate = "boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
-downloadFiles = False #If True data/* files are downloaded immediately on inventory creation from s3-storage (attention: could be very time and diskspace consuming!)
-zipFiles = False
+boilerplate = "C:/ZentralGut_Temp/DLZA_Boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
+downloadFiles = True #If True data/* files are downloaded immediately on inventory creation from s3-storage (attention: could be very time and diskspace consuming!)
+zipFiles = True
 remove_collection_folder_after_zipping = True #If True sip-directories are removed after creating zip-files of the directories.
 
 
@@ -29,9 +29,9 @@ goobi = 'True'
 
 # user information 
 
-user_name = 'Kathrin Heim <kathrin.heim@zhbluzern.ch>'
-user_address = 'mailto:dlza@zhbluzern.ch'
-user_root = 'G:/Research10/ZHB-DLZA/dlza'
+user_name = 'Christian Erlinger <info@zentralgut.ch>'
+user_address = 'mailto:info@zentralgut.ch'
+user_root = 'C:/ZentralGut_Temp'
 
 # organisation information
 
@@ -85,5 +85,6 @@ infoSet = {
 
 # zentralgut specific configuration:
 #zentralgut_oai_sets = ["DC:zentralundhochschulbibliothekluzern.portraitgalerie"]
-zentralgut_filter = ["ID:10946 10947 10945 10643 2623"] #zentralgut_filter = ["meta:singleDigCollection:Zentral- und Hochschulbibliothek Luzern#Portraitgalerie"]
+#zentralgut_filter = ["ID:10946 10947 10945 10643 2623"] 
+zentralgut_filter = ["meta:singleDigCollection:Zentral- und Hochschulbibliothek Luzern#Portraitgalerie"]
 goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }

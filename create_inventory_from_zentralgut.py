@@ -63,7 +63,10 @@ for i, recordId in enumerate(records["ids"]):
     title = goobi.getMetadataDetail(metadata,metadataNames=["TitleDocMain"])
 
     metsFile = goobi.getSourceFile(zentralGutId[0]["value"])
-    license = metsFile.xpath(".//mods:accessCondition[@type='use and reproduction']/@xlink:href",namespaces=goobi.namespaces)
+    if metsFile != None:
+        license = metsFile.xpath(".//mods:accessCondition[@type='use and reproduction']/@xlink:href",namespaces=goobi.namespaces)
+    else:
+        license = [""]
     #print(license[0])
 
     # folder name and signature:
@@ -91,9 +94,10 @@ for i, recordId in enumerate(records["ids"]):
             goobiSSH.downloadFile(f"{remote_dir}{metaFile}",  f"{dlza.dlzaDirs['metadata']}{metaFile}")
 
     #Write mets.xml File to metadata-Directory
-    tree = etree.ElementTree(metsFile)
-    with open(f"{dlza.dlzaDirs['metadata']}{recordId}_mets.xml", "wb") as f:
-        tree.write(f, encoding="UTF-8", xml_declaration=True, pretty_print=True)
+    if metsFile != None:
+        tree = etree.ElementTree(metsFile)
+        with open(f"{dlza.dlzaDirs['metadata']}{recordId}_mets.xml", "wb") as f:
+            tree.write(f, encoding="UTF-8", xml_declaration=True, pretty_print=True)
         
 
     #Check if ZentralGut-Process depends on Alma:

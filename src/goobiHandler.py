@@ -14,9 +14,12 @@ class goobiHandler:
     #This Method is loading the exported METS-SourceFile from the Viewer
     def getSourceFile(self, CatalogIDDigital):
         result = requests.get(url=f"{self.sourceFileUrl}{CatalogIDDigital}", headers = {"accept":"*/*", "Content-Type" : "application/xml"})
-        #return (result.content)
-        metsTree = etree.fromstring(result.content)
-        return metsTree
+        #print (result.content)
+        if result.status_code != 200:
+            None
+        else:
+            metsTree = etree.fromstring(result.content)
+            return metsTree
 
     def getSourceFileUrl(self, CatalogIDDigital):
         return f"{self.sourceFileUrl}{CatalogIDDigital}"
@@ -115,6 +118,10 @@ if __name__ == "__main__":
     # license = goobi.getMetadataDetail(metadata,metadataNames=["UseAndReproductionLicense"])
     # print(title)
 
-    process = goobi.getProcess("10643")
-    goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }
-    print(f'Ruleset {process["rulesetName"]} has file: {goobi_rulesets[process["rulesetName"]]}')
+    # process = goobi.getProcess("10643")
+    # goobi_rulesets = { "LU222": "ruleset_LU222.xml",   "newspaper": "newspaper.xml",   "Regelsatz Newspaper": "ruleset_newspaper.xml",   "Standard": "ruleset.xml" }
+    # print(f'Ruleset {process["rulesetName"]} has file: {goobi_rulesets[process["rulesetName"]]}')
+    metsFile = goobi.getSourceFile("ZHB_SoSa_Portrait_257_verso")
+    print(metsFile)
+    metsFile = goobi.getSourceFile("ZHB_SoSa_Portrait_257")
+    print(metsFile)
