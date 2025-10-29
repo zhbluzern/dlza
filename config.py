@@ -10,10 +10,11 @@ keywords = []  # array
 sets = ["zhb", "sosa", "all", "zentralgut", "digitalisat"]
 
 # general configurations suggested by ERCH, introduced in create_inventory_zentralgut.py first
-boilerplate = "C:/ZentralGut_Temp/DLZA_Boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
+boilerplate = "boilerplate/"
+#boilerplate = "C:/ZentralGut_Temp/DLZA_Boilerplate/" #a subdirectory for working on creating inventory, loading data, zipping them etc. even empty, script runs entirely in root of the script.
 createFolders = True
-downloadFiles = True #If True data/* files are downloaded immediately on inventory creation from s3-storage (attention: could be very time and diskspace consuming!)
-zipFiles = True
+downloadFiles = False #If True data/* files are downloaded immediately on inventory creation from s3-storage (attention: could be very time and diskspace consuming!)
+zipFiles = False
 remove_collection_folder_after_zipping = True #If True sip-directories are removed after creating zip-files of the directories.
 
 

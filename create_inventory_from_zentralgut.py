@@ -42,7 +42,7 @@ Path(f'{baseDir}{collection}').mkdir(parents=True, exist_ok=True)
 
 # load fullfile if exists (usefful for reruns of inventory creation due to ssh-errors)
 if os.path.exists(fulljsonfile):
-    with open(fulljsonfile, "r") as f:
+    with open(fulljsonfile, "r", encoding="utf-8") as f:
         loadedCompleteSet = json.load(f)
 else:
     loadedCompleteSet = []
