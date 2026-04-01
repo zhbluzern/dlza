@@ -34,6 +34,17 @@ def calculate_md5(file_path):
             md5_hash.update(byte_block)
     return md5_hash.hexdigest()
 
+
+def shorten_filename(filename, max_len=120):
+    name, ext = os.path.splitext(filename)
+    if len(filename) <= max_len:
+        return filename
+
+    # Hash aus Originalnamen (eindeutig!)
+    h = hashlib.sha1(filename.encode("utf-8")).hexdigest()[:10]
+    return f"{name[:40]}_{h}{ext}"
+
+
 # check for already processed files
 processed_file = f'{community}_processed.txt'
 if os.path.exists(processed_file):
@@ -94,7 +105,10 @@ with open(file_name, encoding="utf-8") as data_file:
                     md5_checksum_zenodo = entry['checksum'][4:]
 
                     print("filename:",file_name, "mimetype:",mimetype)
-                    local_file = f'{data_path}/{file_name}'
+                    safe_filename = shorten_filename(file_name)
+                    print(safe_filename)
+
+                    local_file = f'{data_path}/{safe_filename}'
                     
                     # download content
                     #response = requests.get(download_url, params={'access_token': ACCESS_TOKEN})
