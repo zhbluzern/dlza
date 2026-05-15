@@ -44,7 +44,8 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
     data = json.load(data_file)
     for value in data:
         
-        counter+= 1 
+        counter+= 1
+        time.sleep(1)
         
         if counter<= debug: 
 
@@ -65,7 +66,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
 
                 # get SRU response
                 query = marc_url+mmsid
-                response = requests.get(query, params={'access_token': ACCESS_TOKEN})
+                response = requests.get(query)
                 if response.status_code != 200:
                     raise Exception(f"SRU request failed with status code {response.status_code}")
 
@@ -210,7 +211,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                 zenodo_id = identifiers['zenodo']
                 # get Zenodo-API response
                 query = f'{zenodo_api_url}/{zenodo_id}'
-                response = requests.get(query)
+                response = requests.get(query, params={'access_token': ACCESS_TOKEN})
                 if response.status_code != 200:
                     raise Exception(f"API request failed with status code {response.status_code}")
 
