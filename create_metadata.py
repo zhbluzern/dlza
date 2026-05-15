@@ -8,7 +8,7 @@ from requests.exceptions import HTTPError
 import config
 import time
 
-# get access token
+# get access token for Zenodo API
 load_dotenv()
 ACCESS_TOKEN = os.getenv('access_token')
 
