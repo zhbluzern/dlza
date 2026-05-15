@@ -7,6 +7,9 @@ from requests.exceptions import HTTPError
 import config
 import time
 
+# get access token
+load_dotenv()
+ACCESS_TOKEN = os.getenv('access_token')
 
 # which metadata is available:
 marc = config.marcxml
@@ -61,7 +64,7 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
 
                 # get SRU response
                 query = marc_url+mmsid
-                response = requests.get(query)
+                response = requests.get(query, params={'access_token': ACCESS_TOKEN})
                 if response.status_code != 200:
                     raise Exception(f"SRU request failed with status code {response.status_code}")
 
