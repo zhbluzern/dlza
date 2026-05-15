@@ -2,8 +2,8 @@
 # 1 - Erstellung der info.json und des Inventory
 
 Ein Python-Script erstellt eine info.json Datei für alle Objekte der Collection und legt sie im Ordner 'ingest' als JSON Datei ab.
-Doku der info.json, siehe GOCFL-implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
-Vorlage: <https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json>
+Doku der info.json, siehe GOCFL-implementierung von Jürgen Enge, <https://github.com/ocfl-archive/gocfl> .
+Vorlage: [https://github.com/ocfl-archive/gocfl/blob/main/gocfl-info-1.0.json](https://github.com/ocfl-archive/gocfl/blob/main/gocfl-info-1.0.json)
 
 Vereinfacht gesagt, muss eine info.json folgendermassen aussehen:
 
@@ -39,7 +39,7 @@ Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert ins working
 ## Variante A: Input-File aus Excel (Alma)
 
 Standardverfahren (für ZHB-Bestände): 
-Viele collections können mit einer Eingabedatei verarbeitet werden, die relativ leicht aus Alma exportiert werden kann. Die Sammlungen der ZHB sind alle in Alma in einem öffentlichen Set in der RZS gelistet. Eine separate Anleitung dazu findet sich auf Stackfield, Schulungsunterlagen zur Erstellung von Sets gibt es bei SLSP oder Ex Libris. 
+Viele collections können mit einer Eingabedatei verarbeitet werden, die relativ leicht aus Alma exportiert werden kann. Die Sammlungen der ZHB sind alle in Alma in einem öffentlichen Set in der RZS gelistet. Eine separate Anleitung dazu befindet sich in einem internen Dokument, Schulungsunterlagen zur Erstellung von Sets gibt es bei SLSP oder Ex Libris. 
 
 Die Export-Datei aus Alma wird leicht überarbeitet. Nicht benötigte Spalten werden gelöscht, einige Daten müssen gesplitted werden. Folgende Spalten werden benötigt (Reihenfolge der Spalten ist irrelevant):
 
@@ -79,8 +79,6 @@ ZHB-Spezifikationen:
 - Soll eine Community nur ab einem bestimmten Publikationsdatum verarbeitet werden (z.B. seit dem letzten Ingest), muss die Variable 'harvest_from_date' angepasst werden (default: 1970-01-01).
 - Bei der Erstellung der Imput-Datei wird geprüft, ob bereits eine DLZA-Signatur in den related_identifiers vorhanden ist (beginnend mit zhb:), da einige records in mehreren communities verknüpft sind. 
 * Wichtig: Falls bereits eine DLZA-Signatur vorhanden ist, wird diese in die letzte Spalte der Excel-Datei geschrieben (sonst: none). Diese Zeilen vor der weiteren Verarbeitung löschen, ansonsten werden diese Publikationen erneut ingestiert.*
-
-
 
 Aufruf:
 
