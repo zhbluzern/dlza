@@ -1,6 +1,6 @@
 # Readme DLZA @ zhbluzern
 
-Diese Python scripts dienen zur Aufbereitung der SIP (Datenobjekte und Metadaten) aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA), basierend auf der GOCFL implementierung von Jürgen Enge, <https://github.com/je4/gocfl> .
+Diese Python scripts dienen zur Aufbereitung der SIP (Datenobjekte und Metadaten) aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA), basierend auf der GOCFL implementierung von Jürgen Enge, <[https://github.com/ocfl-archive/gocfl](https://github.com/ocfl-archive/gocfl)> .
 
 Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (LORY, LARA) sowie Sammlungen aus Zentralgut aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow (internes Dokument auf Stackfield), aber folgender Basis-Workflow gilt für alle Sammlungen.
 
