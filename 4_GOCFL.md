@@ -1,7 +1,7 @@
 # Erstellung der gocfl create Befehle
 
 Dieses Python script erstellt die gocfl create-Befehle für eine bestimmte Collection.
-Die Doku für den Aufbau eines gocfl create Befehls befindet sich hier: <https://github.com/je4/gocfl/blob/main/docs/create.md>
+Die Doku für den Aufbau eines gocfl create Befehls befindet sich hier: [https://github.com/ocfl-archive/gocfl/blob/main/docs/create.md](https://github.com/ocfl-archive/gocfl/blob/main/docs/create.md)
 
 Dieses Script geht davon aus, dass im Unterordner collection/sip/data das Objekt liegt, welches ins Archiv gelagert wird.
 
@@ -23,7 +23,7 @@ Hier wird davon ausgegangen, dass der storage root ein ZIP file sein soll. Für 
 
 ## Create Befehl für gocfl generieren
 
-Die gocfl create Befehle für alle Signaturen werden gemäss <https://github.com/je4/gocfl/blob/main/docs/create.md> erstellt. Der Pfad für die Config.toml kann konfiguriert werden.  
+Die gocfl create Befehle für alle Signaturen werden gemäss [https://github.com/ocfl-archive/gocfl/blob/main/docs/create.md](https://github.com/ocfl-archive/gocfl/blob/main/docs/create.md) erstellt. Der Pfad für die Config.toml kann konfiguriert werden.  
 
 Muster:
 
@@ -35,16 +35,16 @@ Das Script [create_gocfl.py](create_gocfl.py) erstellt für jedes Objekt eine au
 
 ## Display Befehl für gocfl generieren
 
-Das Script erstellt zusätzlich den Display-Befehl gemäss <https://github.com/je4/gocfl/blob/main/docs/display.md>.
+Das Script erstellt zusätzlich den Display-Befehl gemäss [https://github.com/ocfl-archive/gocfl/blob/main/docs/display.md](https://github.com/ocfl-archive/gocfl/blob/main/docs/display.md).
 Der Display-Befehl wird in eine neue, ausführbare Datei (.ps1) in das dazugehörige Display-File geschrieben.
 
 ## ONA Befehl generieren
 
-Das Script erstellt zusätzlich zwei .ps1-Dateien mit den ona-Befehlen, siehe https://gitlab.switch.ch/ub-unibas/dlza/ona sowie interne Doku auf Stackfield. 
+Das Script erstellt zusätzlich zwei .ps1-Dateien mit den ona-Befehlen, siehe [https://github.com/ocfl-archive/ona](https://github.com/ocfl-archive/ona) sowie interne Doku. 
 
 ## Weitere Schritte
 
-Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Die genaue Doku dazu ist auf Stackfield (ZHB-Intern). Kurzfassung:
+Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Die genaue Doku dazu ist intern abgelegt. Kurzfassung:
 
 1. Gesamter collection-ordner auf Viren überprüfen
 2. Je nach SIP: Dateien analysieren mit DROID und bei Bedarf vorher in Archiv-Format umwandeln.
@@ -56,7 +56,7 @@ Alle weiteren Arbeiten finden auf der DLZA-Workbench statt (GOCFL). Die genaue D
 8. gocfl-Archivkapseln mittels ONA nach Basel schicken
 9. DLZA-Monitoring prüfen (sind AIP auf den storages angekommen und korrekt?)
 10. Inventory/Reports auf ZHB-DLZA ablegen, Workbench aufräumen.
-11. Update in Originalsysteme ausführen (TODO)
+11. Update in Originalsysteme ausführen ([Zenodo-pyCLI Uploader](https://github.com/zhbluzern/Zenodo-pyCLI-Uploader/blob/main/UpdateLORY_dlza.py) oder via Alma Importprofil)
 
 ## Zurück zur Übersicht
 
