@@ -1,7 +1,8 @@
 import requests
 import json
 from datetime import datetime
-from pathlib import Path
+from dotenv import load_dotenv
+import os
 from sickle import Sickle
 from requests.exceptions import HTTPError
 import config
