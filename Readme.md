@@ -1,8 +1,8 @@
 # Readme DLZA @ zhbluzern
 
-Diese Python scripts dienen zur Aufbereitung der SIP (Datenobjekte und Metadaten) aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA), basierend auf der GOCFL implementierung von Jürgen Enge, <[https://github.com/ocfl-archive/gocfl](https://github.com/ocfl-archive/gocfl)> .
+Diese Python scripts dienen zur Aufbereitung der SIP (Datenobjekte und Metadaten) aus den Beständen der ZHB Luzern für die digitale Langzeitarchivierung (DLZA), basierend auf der GOCFL Implementierung von Jürgen Enge, [https://github.com/ocfl-archive/gocfl](https://github.com/ocfl-archive/gocfl) .
 
-Es werden Bestände der Sondersammlung (E-Rara, E-codices, etc.), aus dem Open-Science-Repositories (LORY, LARA) sowie Sammlungen aus Zentralgut aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow (internes Dokument auf Stackfield), aber folgender Basis-Workflow gilt für alle Sammlungen.
+Es werden Bestände der Sondersammlung (E-Rara, E-Codices, etc.), aus dem Open-Science-Repositories (LORY) sowie Sammlungen aus Zentralgut aufbereitet. Für jede Sammlung (= collection) gibt es einen eigenen Workflow (internes Dokument), aber folgender Basis-Workflow gilt für alle Sammlungen.
 
 ## Voraussetzungen
 
@@ -17,7 +17,7 @@ Python-Bibliotheken nachinstallieren: z.b. mittels
     pip install python-dotenv
 
 Sämtliche SIP werden lokal erstellt, bzw. vorbereitet. Erst danach (und nach Virencheck) werden die fertigen SIP auf die DLZA Workbench geschoben.
-Die DLZA Workbench der ZHB (Windows-Server) kommt nur für GOCFL und ONA (Verschiebung der AIP nach Basel) zum Einsatz. Diese Prozesse sowie die Konfiguration der Workbench sind in einem internen Dokument beschrieben (Stackfield).
+Die DLZA Workbench der ZHB (Windows-Server) kommt nur für GOCFL und ONA (Verschiebung der AIP nach Basel) zum Einsatz. Diese Prozesse sowie die Konfiguration der Workbench sind in einem internen Dokument beschrieben.
 
 ### Eingabedateien
 
@@ -32,13 +32,11 @@ Siehe [Using env files for environment variables in python applications](https:/
 
 ## Basiskonfiguration mit config.py
 
-Auf Github wird nur eine Beispieldatei der config.py veröffentlicht. Die ZHB-Spezifikationen für die config.py sind in einem internen Dokument (Stackfield) festgehalten.
-Bei jedem Workflow bzw. für jede Collection ist das Anpassen der Datei config.py notwendig.
-Die Datei kann mit einem Editor (z.B. notepad++ oder VS Code) geöffnet und bearbeitet werden, wie eine normale Textdatei. Die config.py muss ebenfalls im lokalen Verzeichnis liegen (gleiche Ebene wie scripts und .env file).
+Auf Github wird nur der Aufbau der config.py veröffentlicht, für die Anwendung muss eine Datei 'config.py' mit nachfolgenden Abschnitten existieren. Die ZHB-Spezifikationen für die config.py sind in einem internen Dokument festgehalten.
+Bei jedem Workflow bzw. für jede Collection ist das Anpassen der config.py notwendig. Die config.py muss ebenfalls im lokalen Verzeichnis liegen (gleiche Ebene wie .py und .env files).
 
-Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Collection konfiguriert werden (z.B. author, institution, etc.). Sie muss in einer bestimmten Struktur vorliegen (Details unten).
-Die Config bilden sowohl Mandant, Datenproduzent und Collection ab. Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem.
-Die config.py beinhält auch die Schnittstellen-Konfigurationen (z.B. Metadatenformate, Basis-URL für OAI-PMH, etc.). Die config-Datei sollte nach Abschluss der Ingest-Vorbereitungen mit dem Collection-Inventory weggespeichert werden.
+Die config.py beinhaltet diverse Daten, welche nicht aus den bestehenden Metadaten (Schnittstelle) kommen, und kann pro Collection konfiguriert werden (z.B. author, institution, etc.). Sie muss in einer bestimmten Struktur vorliegen (Details unten). Sie bildet sowohl Mandant, Datenproduzent und Collection ab. Das Feld 'additional' kann für alles Mögliche verwendet werden, wir notieren hier Dateinamen oder Dateipfade im Originalsystem, Lizenzen, etc.
+Die config.py beinhält auch die Schnittstellen-Konfigurationen (z.B. Metadatenformate, Basis-URL für OAI-PMH, etc.). Die jeweilige config-Datei sollte nach Abschluss der Ingest-Vorbereitungen mit dem Collection-Inventory weggespeichert werden.
 
 Die Konfigurationen, welche für jeden Ingest angepasst werden müssen, sind markiert.
 
@@ -50,12 +48,10 @@ Dieser Bereich muss für jede collection angepasst werden. Bsp. E-Manuscripta:
 
     collection_id = 'emanus'
     collection = 'ZHB Sosa E-Manuscripta'
-    zenodo_set = 'user-zenodocommunity' # Zenodo OAI set name, eg. user-lory
     ingest_workflow = 'e-manuscripta'
     keywords = []  # array
-    sets = ['e-manuscripta', 'zhb']
+    sets = ['e-manuscripta', 'zhb'] # array
     input_file = 'e-manuscripta.xlsx'
-
 
 Aus diesem Abschnitt werden zentrale Daten für alle weiteren Schritte geholt. Die Bezeichnung des ingest-workflows wird auch für die URN benutzt.
 
@@ -71,18 +67,11 @@ Entsprechende Formate auf 'True' setzen, z.B. wenn MARC-Daten hinzugefügt werde
     dc = 'False'
     apidata = 'False'
     tei = 'False'
+    zenodomarc = 'False'
+    zenodoapi = 'False'
 
-Zu jedem Format sollte die Base-URL für die Abholung der Metadaten überprüft werden, z.B. Alma-SRU-Schnittstelle (IZ-spezifische Codes in der URL anpassen)
-
-    marcxml_baseurl = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id='
-
-Nicht benötigte Metadatenformate auf 'False' setzen. Base-URL muss nur angepasst werden, wenn das Format auf true gesetzt ist.
-Es sind noch nicht alle Metadatenformate abgedeckt (im Aufbau). Folgende Metadaten sind derzeit implementiert:
-
-    marcxml (xml via SRU aus Alma)
-    datacite/dc (xml via OAI aus Zenodo)
-    api-data (json via http request von Zenodo REST API)
-    tei (xml via http request von ecodices)
+Nicht benötigte Metadatenformate auf 'False' setzen. Die jeweilige Base-URL (siehe weiter unten) muss nur angepasst werden, wenn das Format auf true gesetzt ist.
+Es sind noch nicht alle Metadatenformate abgedeckt (im Aufbau). 
 
 ### user / organisation information
 
@@ -98,7 +87,7 @@ Name der Ingest-Person bzw. Ingest-Organisation sollte hier angepasst werden. Wi
 
 ### DLZA Workbench information
 
-Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordner sowie der Pfad für die gocfl-config konfiguriert werden, damit der Create-Befehl korrekt erstellt wird. Die angegebenen Pfade sind Beispiele, die ZHB-Workbench-Config findet sich auf Stackfield.
+Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordner sowie der Pfad für die gocfl-config konfiguriert werden, damit der Create-Befehl korrekt erstellt wird. Die angegebenen Pfade sind Beispiele, die ZHB-Workbench-Config ist in einem internen Dokument beschrieben.
 
     dlza_root = 'C:/Ingest'
     gocfl_conf = 'config.toml'
@@ -107,11 +96,17 @@ Wenn mit GOCFL weitergearbeitet wird, sollen hier die Pfade für den Ingest-Ordn
 
 ### general configuration
 
-Basis-Url-Konfiguration für diverse Schnittstellen und Resolver. Hier muss normalerweise nichts angepasst werden (PrimoVE Permalink anpassen an eigene Institution).
+Basis-Url-Konfiguration für diverse Schnittstellen und Resolver. Hier muss normalerweise nichts angepasst werden.
+Zu jedem Format sollte die Base-URL für die Abholung der Metadaten überprüft werden, z.B. Alma-SRU-Schnittstelle (IZ-spezifische Codes in der URL anpassen). 
 
-    baseurl_doi = 'https://doi.org/'
-    baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma'
-
+    baseurl_doi = 'https://doi.org/' # DOI baseurl
+    baseurl_alma = 'https://rzs.swisscovery.slsp.ch/permalink/41SLSP_RZS/ldslj8/alma' # Base URL for your Library catalogue permalink
+    baseurl_marc = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=rec.id=' # MARC: Alma SRU Base URL, change your institution zone and code
+    baseurl_mods = 'https://slsp-rzs.alma.exlibrisgroup.com/view/sru/41SLSP_RZS?version=1.2&operation=searchRetrieve&recordSchema=mods&query=rec.id=' #MODS: Alma SRU  Base URL, change your institution zone and code
+    baseurl_zenodo_oai = 'https://zenodo.org/oai2d' # OAI-PMH url
+    baseurl_zenodo_api = 'https://zenodo.org/api/records' # for api export
+    baseurl_tei = 'https://www.e-codices.unifr.ch/xml/tei_published' # TEI: Baseurl for ecodices tei format
+    baseurl_mets = 'https://www.e-manuscripta.ch/oai?'
 
 
 ## Workflow ZHB-DLZA (Kurzversion)
@@ -126,15 +121,15 @@ Die einzelnen Schritte werden ausführlich in den folgenden Kapiteln  beschriebe
 ### Inventar
 
 Für jede Archivkapsel der Collection wird eine info.json Datei nach folgendem Schema erstellt:
-<https://github.com/je4/gocfl/blob/main/gocfl-info-1.0.json>
+[https://github.com/ocfl-archive/gocfl/blob/main/gocfl-info-1.0.json](https://github.com/ocfl-archive/gocfl/blob/main/gocfl-info-1.0.json)
 
-Für jeden einzelnen record wird eine info.json-Datei erstellt.
+Für jeden einzelnen record wird eine info.json erstellt.
 Zugleich wird die Ordnerstruktur 'collection/sip/' erstellt, darin jeweils die sub-directories 'metadata', 'data' und 'ingest'. Die info.json wird im ingest-directory abgelegt.
 Das ganze Set wird am Ende noch als json- und Excel-Datei exportiert.
 
 ### Metadaten (Alma, Zenodo, weitere Systeme)
 
-Mit der record id werden die MARC-/DC-Daten via SRU/OAI aus den Master-Systemen extrahiert und abgespeichert unter 'recid'.xml im directory 'metadata'.
+Mit der record id werden die Metadaten (z.B. MARC-/DC-Daten) via SRU/OAI aus den Master-Systemen extrahiert und abgespeichert unter 'recid'.xml im directory 'metadata'.
 Weitere Metadaten (z.B. METS/MODS-Daten) können aus andern Systemen hinzugefügt werden.
 Wichtig: die Metadaten müssen pro SIP in einem eigenen directory 'metadata' zusammegefasst werden.
 
@@ -142,9 +137,9 @@ Wichtig: die Metadaten müssen pro SIP in einem eigenen directory 'metadata' zus
 
 Dies wird je nach Collection etwas unterschiedlich gehandhabt, da die Datenobjekte nicht einheitlich bezeichnet sind. Die Datenobjekte sollten grundsätzlich im directory 'data' abgelegt sein. Für Zenodo gibt es ein Download-Script, für einige Digitalisierungsprojekte ein Kopier-Script, wenn die Originalsystempfade bekannt sind.
 
-### GOCF-Befehle
+### GOCFL-Befehle
 
-Die gocfl-Befehle für 'create', 'display' und 'ona' werden mittels Script vorbereitet und als Batch-Dateien im ingest-directory abgelegt. Mehr dazu auf <https://github.com/je4/gocfl>
+Die gocfl-Befehle für 'create', 'display' und 'ona' werden mittels Script vorbereitet und als Batch-Dateien im ingest-directory abgelegt. Mehr dazu auf <[https://github.com/ocfl-archive/ona](https://github.com/ocfl-archive/ona)>
 
 ## Nächstes Kapitel
 
