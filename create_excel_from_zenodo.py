@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import datetime 
 import config
+import time
 
 # This script harvests records from a Zenodo community and writes the metadata to an Excel file.
 # Make sure to have the required libraries installed:
@@ -10,8 +11,8 @@ import config
 # Set the community ID and harvest date
 community = config.collection_id
 # enter the date from which you want to harvest records, e.g. "2024-07-19" for all records from 19th July 2024 onwards. Default (all records) is: "1970-01-01"
-#harvest_from_date = "1970-01-01" #default
-harvest_from_date = "2025-05-27" #lory_zhb last import date
+harvest_from_date = "1970-01-01" #default
+#harvest_from_date = "2025-07-08" # last import date
 
 
 output = config.input_file
@@ -22,11 +23,30 @@ size = '25' # for higher page size you need an API token
 params = { "communities":  community, "size": size, "q": f"created:[{harvest_from_date} TO *]" }
 
 
-def getRecords():
-    r = requests.get(f"{zenodoRestUrl}", params=params, headers=headers)
-    r.raise_for_status()
-    if r.status_code != 204:
-        return r.json()
+def getRecords(max_retries=5):
+    for attempt in range(max_retries):
+        r = requests.get(f"{zenodoRestUrl}", params=params, headers=headers)
+
+        # ✅ Erfolg
+        if r.status_code == 200:
+            return r.json()
+
+        # ✅ 204 = kein Inhalt
+        if r.status_code == 204:
+            return None
+
+        # ✅ 429 = warten + retry
+        if r.status_code == 429:
+            #wait = int(r.headers.get("Retry-After", 2))
+            wait = int(r.headers.get("Retry-After", 2)) * (2 ** attempt)
+            time.sleep(wait)
+            continue
+
+        # ✅ andere Fehler → abbrechen
+        r.raise_for_status()
+
+    raise Exception("Max retries überschritten")
+
 
 result = getRecords()
 numOfRec = (result["hits"]["total"])
@@ -66,6 +86,7 @@ while localRecordCounter < int(numOfRec):
         resultDet["dlza_identifier"] = dlza_identifier if dlza_identifier else "none"
 
         print(f"#{localRecordCounter}: {record['doi']}")
+        time.sleep(0.2)
 
         localRecordCounter += 1
         resultSet.append(resultDet)
