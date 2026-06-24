@@ -8,6 +8,8 @@ from requests.exceptions import HTTPError
 import config
 import time
 
+GLOBAL_DELAY = 0.3
+
 # get access token for Zenodo API
 load_dotenv()
 ACCESS_TOKEN = os.getenv('access_token')
@@ -39,15 +41,72 @@ input_file = f'{collection}/{collection}_inventory.json'
 counter = 0
 debug = 9999 # debug mode. How many records are harvested. Enter 9999 for production mode.
 
+# 🔥 hier einstellen, bei welcher Excelzeile du wieder anfangen willst, wenn es abgebrochen ist. Default: 0
+start_at = 1909
+
+#zentrale funktion für alle OAI records
+
+def fetch_oai_record(sickle, zenodo_id, prefix, label):
+    def request():
+        return sickle.GetRecord(
+            identifier=f"oai:zenodo.org:{zenodo_id}",
+            metadataPrefix=prefix
+        )
+
+    for attempt in range(5):
+        try:
+            result = request()
+            return result
+
+        except Exception as e:
+            wait = 2 ** attempt
+            print(f"⚠️ {label} Fehler ({zenodo_id}) → retry in {wait}s")
+            time.sleep(wait)
+
+    print(f"❌ {label} komplett fehlgeschlagen: {zenodo_id}, Zeile {counter}")
+    return None
+
+# funktion für Zenodo API
+
+def fetch_json(url, params=None):
+    for attempt in range(5):
+        try:
+            r = requests.get(url, params=params, timeout=10)
+
+            if r.status_code == 200:
+                return r
+
+            if r.status_code == 429:
+                wait = int(r.headers.get("Retry-After", 2))
+                time.sleep(wait)
+                continue
+
+            r.raise_for_status()
+
+        except requests.exceptions.ConnectionError:
+            wait = 2 ** attempt
+            time.sleep(wait)
+
+    return None
+
+
+
 
 with open(input_file, encoding="utf-8", errors="replace") as data_file:    
     data = json.load(data_file)
     for value in data:
         
         counter+= 1
+        #time.sleep(GLOBAL_DELAY)
+        
+        
+        if counter < start_at:
+            continue   # 🔥 überspringt alles bis zu dieser Zeile im Excel
         
         
         if counter<= debug: 
+            
+            time.sleep(GLOBAL_DELAY)
 
             # create new directory for each signature (ignore, if it already exists)            
             foldername = value["references"][-1][4:]
@@ -97,7 +156,6 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     print(f"#{counter}-{mmsid} MODS XML downloaded.")        
 
             # mets data:
-
             if mets == 'True':
 
                 # get external id:
@@ -109,100 +167,53 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                     file.write(mets_response.raw)
                     print(f'#{counter}-{mets_id}: METS file downloaded. ')
 
-            # datacite metadata        
-            if datacite == "True":  
-
-                retry_count = 0
-                max_retries = 5   
-                # get zenodo id and start OAI-PMH request 
-                zenodo_id = identifiers['zenodo'] 
-                sickle = Sickle(zenodo_oai_url)
-                time.sleep(1)
-
-                while retry_count < max_retries:
-                    try:
-                        datacite_response = sickle.GetRecord(identifier=f"oai:zenodo.org:{zenodo_id}", metadataPrefix='oai_datacite')
-                        datacitefile = f'{collection}/{foldername}/metadata/{zenodo_id}_datacite.xml'
-                        with open(datacitefile, 'w', encoding="utf-8") as file:
-                            file.write(datacite_response.raw)
-                            print(f'#{counter} - {zenodo_id}: Datacite Metadata downloaded. ')
-
-                        retry_count = 0  # Reset retry count on successful response
-                        break
-                    except HTTPError as e:
-                        if e.response.status_code == 429:
-                            retry_count += 1
-                            wait_time = 2 ** retry_count  # Exponentielles Backoff
-                            print(f"Rate limit exceeded. Waiting for {wait_time} seconds before retrying...")
-                            time.sleep(wait_time)
-                        else:
-                            raise e
-                if retry_count == max_retries:
-                    print("Max retries exceeded. Aborting...")
-
-            # dublincore metadata        
-            if dublincore == "True":  
-
-                retry_count = 0
-                max_retries = 5
-                # get zenodo id and start OAI-PMH request
+            # datacite metadata
+            if datacite == "True":
                 zenodo_id = identifiers['zenodo']
                 sickle = Sickle(zenodo_oai_url)
-                time.sleep(1)
-
-                while retry_count < max_retries:
-                    try:
-                        dc_response = sickle.GetRecord(identifier=f"oai:zenodo.org:{zenodo_id}", metadataPrefix='oai_dc')
-                        dc_file = f'{collection}/{foldername}/metadata/{zenodo_id}_dc.xml'
-
-                        with open(dc_file, 'w', encoding="utf-8") as file:
-                            file.write(dc_response.raw)
-                            print(f'#{counter} - {zenodo_id}: DC Metadata downloaded. ')
-
-                        retry_count = 0  # Reset retry count on successful response
-                        break
-                    except HTTPError as e:
-                        if e.response.status_code == 429:
-                            retry_count += 1
-                            wait_time = 2 ** retry_count  # Exponentielles Backoff
-                            print(f"Rate limit exceeded. Waiting for {wait_time} seconds before retrying...")
-                            time.sleep(wait_time)
-                        else:
-                            raise e
-                if retry_count == max_retries:
-                    print("Max retries exceeded. Aborting...")
-
-            # zenodomarc metadata        
-            if zenodomarc == "True":  
-
-                retry_count = 0
-                max_retries = 5
-                # get zenodo id and start OAI-PMH request
+            
+                time.sleep(0.5)  # 🔥 wichtig!
+            
+                res = fetch_oai_record(sickle, zenodo_id, 'oai_datacite', 'Datacite')
+            
+                if res:
+                    file = f'{collection}/{foldername}/metadata/{zenodo_id}_datacite.xml'
+                    with open(file, 'w', encoding="utf-8") as f:
+                        f.write(res.raw)
+                        print(f'#{counter} - {zenodo_id}: Datacite Metadata downloaded. ')
+                        
+            #dublincore metadata
+            if dublincore == "True":
                 zenodo_id = identifiers['zenodo']
-                sickle = Sickle(zenodo_oai_url) 
-                time.sleep(1)
+                sickle = Sickle(zenodo_oai_url)
+            
+                time.sleep(0.5)
+            
+                res = fetch_oai_record(sickle, zenodo_id, 'oai_dc', 'DublinCore')
+            
+                if res:
+                    file = f'{collection}/{foldername}/metadata/{zenodo_id}_dc.xml'
+                    with open(file, 'w', encoding="utf-8") as f:
+                        f.write(res.raw)
+                        print(f'#{counter} - {zenodo_id}: DC Metadata downloaded. ')
 
-                while retry_count < max_retries:
-                    try:
-                        marc_response = sickle.GetRecord(identifier=f"oai:zenodo.org:{zenodo_id}", metadataPrefix='marcxml')
-                        marc_file = f'{collection}/{foldername}/metadata/{zenodo_id}_marc.xml'
 
-                        with open(marc_file, 'w', encoding="utf-8") as file:
-                            file.write(marc_response.raw)
-                            print(f'#{counter} - {zenodo_id}: MARC Metadata downloaded. ')
-
-                        retry_count = 0  # Reset retry count on successful response
-                        break
-                    except HTTPError as e:
-                        if e.response.status_code == 429:
-                            retry_count += 1
-                            wait_time = 2 ** retry_count  # Exponentielles Backoff
-                            print(f"Rate limit exceeded. Waiting for {wait_time} seconds before retrying...")
-                            time.sleep(wait_time)
-                        else:
-                            raise e
-                if retry_count == max_retries:
-                    print("Max retries exceeded. Aborting...")
+ 
+            #marcxml metadata Zenodo
+            if zenodomarc == "True":
+                zenodo_id = identifiers['zenodo']
+                sickle = Sickle(zenodo_oai_url)
+            
+                time.sleep(0.5)
+            
+                res = fetch_oai_record(sickle, zenodo_id, 'marcxml', 'ZenodoMARC')
+            
+                if res:
+                    file = f'{collection}/{foldername}/metadata/{zenodo_id}_marc.xml'
+                    with open(file, 'w', encoding="utf-8") as f:
+                        f.write(res.raw)
+                        print(f'#{counter} - {zenodo_id}: Zenodo-MARC Metadata downloaded. ')
+            
                          
                     
             # zenodo api metadata        
@@ -215,7 +226,10 @@ with open(input_file, encoding="utf-8", errors="replace") as data_file:
                 # get Zenodo-API response
                 query = f'{zenodo_api_url}/{zenodo_id}'
                 time.sleep(1)
-                response = requests.get(query, params={'access_token': ACCESS_TOKEN})
+                
+                response = fetch_json(query, {'access_token': ACCESS_TOKEN})
+
+                #response = requests.get(query, params={'access_token': ACCESS_TOKEN})
                 if response.status_code != 200:
                     raise Exception(f"API request failed with status code {response.status_code}")
 
