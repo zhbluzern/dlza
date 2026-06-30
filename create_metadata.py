@@ -42,7 +42,7 @@ counter = 0
 debug = 9999 # debug mode. How many records are harvested. Enter 9999 for production mode.
 
 # 🔥 hier einstellen, bei welcher Excelzeile du wieder anfangen willst, wenn es abgebrochen ist. Default: 0
-start_at = 1909
+start_at = 0
 
 #zentrale funktion für alle OAI records
 
